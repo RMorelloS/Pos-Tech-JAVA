@@ -7,6 +7,7 @@ import com.techchallenge.Monitoring_API.repositorio.RepositorioEnderecoUsuario;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +29,7 @@ public class EnderecoUsuarioController {
 
     @Autowired
     private RepositorioEnderecoUsuario repoEndereco;
+    @Autowired
     private JMapper<EnderecoUsuario, EnderecoUsuarioForm> enderecoUsuarioMapper;
     @Autowired
     private Validator validator;
@@ -41,6 +43,30 @@ public class EnderecoUsuarioController {
         var enderecos = repoEndereco.findAll();
         if(enderecos == null || enderecos.isEmpty()){
             return ResponseEntity.ok("Sem endereços cadastrados!");
+        }else{
+            return ResponseEntity.ok(enderecos);
+        }
+    }
+    @RequestMapping(value="/encontrarEnderecos", method = RequestMethod.GET)
+    public ResponseEntity consultarEnderecoPorParametro(@RequestParam Map<String, String> params){
+        String param = "";
+        String value = "";
+        String msgErro = "Sem endereços para o filtro especificado." +
+                "Envie o primeiro parâmetro considerando o atributo que" +
+                " será buscado (rua, cidade, ...) e o segundo parâmetro" +
+                " correspondente ao valor que será buscado ex: \"cidade\", " +
+                "\"São Paulo\"";
+
+        param = params.get("param");
+        value = params.get("value");
+
+        if(param == null || value == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(msgErro);
+        }
+
+        var enderecos = repoEndereco.findByParam(param, value);
+        if(enderecos == null || enderecos.isEmpty()){
+            return ResponseEntity.ok(msgErro);
         }else{
             return ResponseEntity.ok(enderecos);
         }

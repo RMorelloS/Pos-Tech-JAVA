@@ -1,4 +1,4 @@
-package com.techchallenge.Monitoring_API.config;
+package com.techchallenge.Monitoring_API.Endereco.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

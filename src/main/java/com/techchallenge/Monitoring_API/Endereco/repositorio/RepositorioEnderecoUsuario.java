@@ -1,6 +1,6 @@
-package com.techchallenge.Monitoring_API.repositorio;
+package com.techchallenge.Monitoring_API.Endereco.repositorio;
 
-import com.techchallenge.Monitoring_API.domain.EnderecoUsuario;
+import com.techchallenge.Monitoring_API.Endereco.domain.EnderecoUsuario;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -17,10 +17,11 @@ public class RepositorioEnderecoUsuario {
     }
 
     public void save(EnderecoUsuario enderecoUsuario) {
+        enderecoUsuario.setIdEndereco((Long) (enderecos.size() + 1L));
         enderecos.add(enderecoUsuario);
     }
 
-    public List<EnderecoUsuario> findByParam(String param, String value) {
+    public List<EnderecoUsuario> encontrarEnderecosPorParametro(String param, String value) {
         List enderecosRetorno = new ArrayList();
         switch((param.toString().toLowerCase())){
             case "rua":
@@ -47,4 +48,21 @@ public class RepositorioEnderecoUsuario {
         return enderecosRetorno;
     }
 
+    public void update(EnderecoUsuario enderecoUsuario) {
+        var enderecoBuscado =  buscaEndereco(enderecoUsuario).get();
+        enderecoBuscado.setRua(enderecoUsuario.getRua());
+        enderecoBuscado.setBairro(enderecoUsuario.getBairro());
+        enderecoBuscado.setCidade(enderecoUsuario.getCidade());
+        enderecoBuscado.setNumero(enderecoUsuario.getNumero());
+        enderecoBuscado.setNumero(enderecoUsuario.getNumero());
+    }
+
+    public Optional<EnderecoUsuario> buscaEndereco(EnderecoUsuario enderecoUsuario) {
+        var endereco = enderecos.stream().filter(p -> p.equals(enderecoUsuario)).findFirst();
+        return endereco;
+    }
+
+    public void delete(EnderecoUsuario enderecoUsuario) {
+        enderecos.removeIf(p -> p.equals(enderecoUsuario));
+    }
 }

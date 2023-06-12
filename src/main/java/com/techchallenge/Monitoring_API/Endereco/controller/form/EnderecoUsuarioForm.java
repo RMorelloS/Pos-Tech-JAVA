@@ -1,4 +1,4 @@
-package com.techchallenge.Monitoring_API.controller.form;
+package com.techchallenge.Monitoring_API.Endereco.controller.form;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -25,7 +25,4 @@ public class EnderecoUsuarioForm {
     @Getter
     @Setter
     private String estado;
-    @Getter
-    @Setter
-    private int IdEndereco;
 }

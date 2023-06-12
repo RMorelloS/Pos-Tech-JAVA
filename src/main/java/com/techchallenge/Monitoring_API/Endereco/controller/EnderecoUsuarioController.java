@@ -1,10 +1,9 @@
-package com.techchallenge.Monitoring_API.controller;
+package com.techchallenge.Monitoring_API.Endereco.controller;
 
 import com.googlecode.jmapper.JMapper;
-import com.techchallenge.Monitoring_API.controller.form.EnderecoUsuarioForm;
-import com.techchallenge.Monitoring_API.domain.EnderecoUsuario;
-import com.techchallenge.Monitoring_API.repositorio.RepositorioEnderecoUsuario;
-import org.apache.coyote.Response;
+import com.techchallenge.Monitoring_API.Endereco.controller.form.EnderecoUsuarioForm;
+import com.techchallenge.Monitoring_API.Endereco.domain.EnderecoUsuario;
+import com.techchallenge.Monitoring_API.Endereco.repositorio.RepositorioEnderecoUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
@@ -16,10 +15,8 @@ import javax.validation.Path;
 import javax.validation.Validator;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/endereco")
@@ -42,7 +39,7 @@ public class EnderecoUsuarioController {
     public ResponseEntity consultarEnderecos(){
         var enderecos = repoEndereco.findAll();
         if(enderecos == null || enderecos.isEmpty()){
-            return ResponseEntity.ok("Sem endereços cadastrados!");
+            return ResponseEntity.ok("Sem endereços cadastrados!!");
         }else{
             return ResponseEntity.ok(enderecos);
         }
@@ -64,7 +61,7 @@ public class EnderecoUsuarioController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(msgErro);
         }
 
-        var enderecos = repoEndereco.findByParam(param, value);
+        var enderecos = repoEndereco.encontrarEnderecosPorParametro(param, value);
         if(enderecos == null || enderecos.isEmpty()){
             return ResponseEntity.ok(msgErro);
         }else{
@@ -75,9 +72,13 @@ public class EnderecoUsuarioController {
     @PostMapping
     public ResponseEntity criarEndereco(@RequestBody EnderecoUsuarioForm enderecoUsuarioForm){
         Map<Path, String> violacoesToMap = validarInput(enderecoUsuarioForm);
+        if(!violacoesToMap.isEmpty()){
+            return ResponseEntity.badRequest().body(violacoesToMap);
+        }
         var enderecoUsuario = enderecoUsuarioMapper.getDestination(enderecoUsuarioForm);
+
         repoEndereco.save(enderecoUsuario);
-        return ResponseEntity.ok("");
+        return ResponseEntity.ok("Endereço adicionado com sucesso!");
     }
 
     private <T> Map<Path, String> validarInput(T form) {
@@ -89,5 +90,33 @@ public class EnderecoUsuarioController {
         return violacoesToMap;
     }
 
+    @PutMapping
+    public ResponseEntity update(@RequestBody EnderecoUsuario enderecoUsuario){
+            Map<Path, String> violacoesToMap = validarInput(enderecoUsuario);
+        if(!violacoesToMap.isEmpty()){
+            return ResponseEntity.badRequest().body(violacoesToMap);
+        }
+        Optional<EnderecoUsuario> endereco = repoEndereco.buscaEndereco(enderecoUsuario);
+        if(endereco == null){
+            return ResponseEntity.badRequest().body("Endereço não encontrado");
+        }
+        repoEndereco.update(enderecoUsuario);
+        return ResponseEntity.ok("Endereço atualizado com sucesso!");
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity delete(@PathVariable Long id){
+        EnderecoUsuario enderecoUsuario =new EnderecoUsuario();
+        enderecoUsuario.setIdEndereco(id);
+        var usuarioBusca = repoEndereco.
+                buscaEndereco(enderecoUsuario);
+        if (usuarioBusca.isPresent()){
+            repoEndereco.delete(enderecoUsuario);
+            return ResponseEntity.ok("Excluído com sucesso!");
+        }else{
+            return ResponseEntity.badRequest().body("Endereço não encontrado!");
+        }
+
+    }
 
 }

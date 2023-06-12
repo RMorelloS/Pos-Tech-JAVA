@@ -1,9 +1,11 @@
-package com.techchallenge.Monitoring_API.Endereco.config;
+package com.techchallenge.Monitoring_API.config;
 
 import com.googlecode.jmapper.JMapper;
 import com.googlecode.jmapper.api.JMapperAPI;
-import com.techchallenge.Monitoring_API.Endereco.controller.form.EnderecoUsuarioForm;
-import com.techchallenge.Monitoring_API.Endereco.domain.EnderecoUsuario;
+import com.techchallenge.Monitoring_API.controller.form.EnderecoUsuarioForm;
+import com.techchallenge.Monitoring_API.controller.form.PessoaForm;
+import com.techchallenge.Monitoring_API.domain.EnderecoUsuario;
+import com.techchallenge.Monitoring_API.domain.Pessoa;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,6 +23,18 @@ public class JMapperBean {
                         .add(attribute("cidade").value("cidade"))
                         .add(attribute("estado").value("estado")));
         return new JMapper<>(EnderecoUsuario.class, EnderecoUsuarioForm.class, jMapperAPI);
+    }
+
+    @Bean
+    public JMapper<Pessoa, PessoaForm> pessoaMapper() {
+        JMapperAPI jMapperAPI = new JMapperAPI()
+                .add(JMapperAPI.mappedClass(Pessoa.class)
+                        .add(attribute("nome").value("nome"))
+                        .add(attribute("dataNascimento").value("dataNascimento"))
+                        .add(attribute("sexo").value("sexo"))
+                        .add(attribute("parentesco").value("parentesco"))
+                );
+        return new JMapper<>(Pessoa.class, PessoaForm.class, jMapperAPI);
     }
 }
 

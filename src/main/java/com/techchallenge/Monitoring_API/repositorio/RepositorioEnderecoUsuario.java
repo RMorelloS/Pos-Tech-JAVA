@@ -1,6 +1,6 @@
-package com.techchallenge.Monitoring_API.Endereco.repositorio;
+package com.techchallenge.Monitoring_API.repositorio;
 
-import com.techchallenge.Monitoring_API.Endereco.domain.EnderecoUsuario;
+import com.techchallenge.Monitoring_API.domain.EnderecoUsuario;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;

@@ -1,9 +1,9 @@
-package com.techchallenge.Monitoring_API.Endereco.controller;
+package com.techchallenge.Monitoring_API.controller;
 
 import com.googlecode.jmapper.JMapper;
-import com.techchallenge.Monitoring_API.Endereco.controller.form.EnderecoUsuarioForm;
-import com.techchallenge.Monitoring_API.Endereco.domain.EnderecoUsuario;
-import com.techchallenge.Monitoring_API.Endereco.repositorio.RepositorioEnderecoUsuario;
+import com.techchallenge.Monitoring_API.controller.form.EnderecoUsuarioForm;
+import com.techchallenge.Monitoring_API.domain.EnderecoUsuario;
+import com.techchallenge.Monitoring_API.repositorio.RepositorioEnderecoUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;

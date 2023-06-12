@@ -1,4 +1,4 @@
-package com.techchallenge.Monitoring_API.Endereco.domain;
+package com.techchallenge.Monitoring_API.domain;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,8 +14,6 @@ public class EnderecoUsuario {
     private String rua;
     @Getter
     @Setter
-    //NOT BLANK NÃO EXISTE PARA NUMERO, VERIFICAR
-    //@Min(value = 0L
     @Min(value=0L, message = "Campo 'numero' deve ser um inteiro positivo")
     private int numero;
     @Getter

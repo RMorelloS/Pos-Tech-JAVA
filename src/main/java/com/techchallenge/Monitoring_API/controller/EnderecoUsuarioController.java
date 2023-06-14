@@ -16,6 +16,7 @@ import javax.validation.Validator;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -96,7 +97,7 @@ public class EnderecoUsuarioController {
         if(!violacoesToMap.isEmpty()){
             return ResponseEntity.badRequest().body(violacoesToMap);
         }
-        Optional<EnderecoUsuario> endereco = repoEndereco.buscaEndereco(enderecoUsuario);
+        Optional<EnderecoUsuario> endereco = repoEndereco.buscaEndereco(enderecoUsuario.getIdEndereco());
         if(endereco == null){
             return ResponseEntity.badRequest().body("Endereço não encontrado");
         }
@@ -105,13 +106,12 @@ public class EnderecoUsuarioController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity delete(@PathVariable Long id){
-        EnderecoUsuario enderecoUsuario =new EnderecoUsuario();
-        enderecoUsuario.setIdEndereco(id);
+    public ResponseEntity delete(@PathVariable UUID id){
+
         var usuarioBusca = repoEndereco.
-                buscaEndereco(enderecoUsuario);
+                buscaEndereco(id);
         if (usuarioBusca.isPresent()){
-            repoEndereco.delete(enderecoUsuario);
+            repoEndereco.delete(id);
             return ResponseEntity.ok("Excluído com sucesso!");
         }else{
             return ResponseEntity.badRequest().body("Endereço não encontrado!");

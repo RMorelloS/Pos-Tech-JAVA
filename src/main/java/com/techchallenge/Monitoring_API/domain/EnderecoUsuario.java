@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
+import java.util.UUID;
 
 public class EnderecoUsuario {
     @Getter
@@ -30,7 +31,7 @@ public class EnderecoUsuario {
     private String estado;
     @Getter
     @Setter
-    private Long IdEndereco;
+    private UUID IdEndereco;
 
     @Override
     public boolean equals(Object o) {
@@ -38,5 +39,14 @@ public class EnderecoUsuario {
         if (o == null || getClass() != o.getClass()) return false;
         EnderecoUsuario that = (EnderecoUsuario) o;
         return Objects.equals(IdEndereco, that.IdEndereco);
+    }
+
+    public EnderecoUsuario(String rua, int numero, String bairro, String cidade, String estado) {
+        this.rua = rua;
+        this.numero = numero;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.estado = estado;
+        IdEndereco = UUID.randomUUID();
     }
 }

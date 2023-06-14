@@ -2,7 +2,6 @@ package com.techchallenge.Monitoring_API.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
@@ -14,7 +13,7 @@ public class Pessoa {
         this.dataNascimento = dataNascimento;
         this.sexo = sexo;
         this.parentescoUsuario = parentescoUsuario;
-        this.id = UUID.randomUUID();
+        this.idPessoa = UUID.randomUUID();
     }
 
     public Pessoa() {
@@ -37,6 +36,6 @@ public class Pessoa {
     @NotBlank(message = "Campo 'parentesco' é obrigatório e não pode estar vazio")
     private String parentescoUsuario;
     @Getter
-    private UUID id;
+    private UUID idPessoa;
 
 }

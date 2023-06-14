@@ -17,7 +17,6 @@ public class RepositorioEnderecoUsuario {
     }
 
     public void save(EnderecoUsuario enderecoUsuario) {
-        enderecoUsuario.setIdEndereco((Long) (enderecos.size() + 1L));
         enderecos.add(enderecoUsuario);
     }
 
@@ -49,7 +48,7 @@ public class RepositorioEnderecoUsuario {
     }
 
     public void update(EnderecoUsuario enderecoUsuario) {
-        var enderecoBuscado =  buscaEndereco(enderecoUsuario).get();
+        var enderecoBuscado =  buscaEndereco(enderecoUsuario.getIdEndereco()).get();
         enderecoBuscado.setRua(enderecoUsuario.getRua());
         enderecoBuscado.setBairro(enderecoUsuario.getBairro());
         enderecoBuscado.setCidade(enderecoUsuario.getCidade());
@@ -57,12 +56,12 @@ public class RepositorioEnderecoUsuario {
         enderecoBuscado.setNumero(enderecoUsuario.getNumero());
     }
 
-    public Optional<EnderecoUsuario> buscaEndereco(EnderecoUsuario enderecoUsuario) {
-        var endereco = enderecos.stream().filter(p -> p.equals(enderecoUsuario)).findFirst();
+    public Optional<EnderecoUsuario> buscaEndereco(UUID id) {
+        var endereco = enderecos.stream().filter(p -> p.getIdEndereco()==id).findFirst();
         return endereco;
     }
 
-    public void delete(EnderecoUsuario enderecoUsuario) {
-        enderecos.removeIf(p -> p.equals(enderecoUsuario));
+    public void delete(UUID id) {
+        enderecos.removeIf(p -> p.getIdEndereco() == id);
     }
 }

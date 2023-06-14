@@ -1,7 +1,6 @@
 package com.techchallenge.Monitoring_API.repositorio;
 
 import com.techchallenge.Monitoring_API.domain.Pessoa;
-import com.techchallenge.Monitoring_API.domain.Pessoa;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -21,7 +20,7 @@ public class RepositorioPessoa {
         pessoas.add(Pessoa);
     }
     public void update(Pessoa pessoa) {
-        var PessoaBuscado =  buscaPessoa(pessoa.getId()).get();
+        var PessoaBuscado =  buscaPessoa(pessoa.getIdPessoa()).get();
         PessoaBuscado.setNome(pessoa.getNome());
         PessoaBuscado.setDataNascimento(pessoa.getDataNascimento());
         PessoaBuscado.setSexo(pessoa.getSexo());
@@ -29,11 +28,11 @@ public class RepositorioPessoa {
     }
 
     public Optional<Pessoa> buscaPessoa(UUID id) {
-        var pessoaBuscada = pessoas.stream().filter(p -> p.getId() == id).findFirst();
+        var pessoaBuscada = pessoas.stream().filter(p -> p.getIdPessoa() == id).findFirst();
         return pessoaBuscada;
     }
 
     public void delete(UUID id) {
-        pessoas.removeIf(p -> p.getId() == id);
+        pessoas.removeIf(p -> p.getIdPessoa() == id);
     }
 }

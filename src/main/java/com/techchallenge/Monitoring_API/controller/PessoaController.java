@@ -6,7 +6,6 @@ import com.techchallenge.Monitoring_API.domain.Pessoa;
 import com.techchallenge.Monitoring_API.repositorio.RepositorioPessoa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -73,7 +72,7 @@ public class PessoaController {
         if(!violacoesToMap.isEmpty()){
             return ResponseEntity.badRequest().body(violacoesToMap);
         }
-        Optional<Pessoa> pessoaBuscada = repoPessoa.buscaPessoa(pessoa.getId());
+        Optional<Pessoa> pessoaBuscada = repoPessoa.buscaPessoa(pessoa.getIdPessoa());
         if(pessoaBuscada == null){
             return ResponseEntity.badRequest().body("Endereço não encontrado");
         }

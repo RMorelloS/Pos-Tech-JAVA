@@ -4,15 +4,15 @@ import com.googlecode.jmapper.JMapper;
 import com.techchallenge.Monitoring_API.controller.form.EletrodomesticoForm;
 import com.techchallenge.Monitoring_API.domain.Eletrodomestico;
 import com.techchallenge.Monitoring_API.repositorio.RepositorioEletrodomestico;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Path;
+import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Path;
-import javax.validation.Validator;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -28,13 +28,9 @@ public class EletrodomesticoController {
     @Autowired
     private RepositorioEletrodomestico repoEletrodomestico;
     @Autowired
-    private JMapper<Eletrodomestico, EletrodomesticoForm> eletrodomesticoMapper;
-    @Autowired
     private Validator validator;
-    public EletrodomesticoController(RepositorioEletrodomestico repoEletrodomestico,
-                                     JMapper<Eletrodomestico, EletrodomesticoForm> eletrodomesticoMapper){
+    public EletrodomesticoController(RepositorioEletrodomestico repoEletrodomestico){
         this.repoEletrodomestico = repoEletrodomestico;
-        this.eletrodomesticoMapper = eletrodomesticoMapper;
     }
     @GetMapping
     public ResponseEntity consultarEletrodomesticos(){
@@ -52,7 +48,7 @@ public class EletrodomesticoController {
         if(!violacoesToMap.isEmpty()){
             return ResponseEntity.badRequest().body(violacoesToMap);
         }
-        var eletrodomesticoBusca = eletrodomesticoMapper.getDestination(eletrodomesticoForm);
+        var eletrodomesticoBusca = eletrodomesticoForm.toEletrodomestico(eletrodomesticoForm);
 
         repoEletrodomestico.save(eletrodomesticoBusca);
         return ResponseEntity.ok("Eletrodoméstico adicionado com sucesso!");
@@ -73,11 +69,11 @@ public class EletrodomesticoController {
         if(!violacoesToMap.isEmpty()){
             return ResponseEntity.badRequest().body(violacoesToMap);
         }
-        Optional<Eletrodomestico> eletrodomesticoBusca = repoEletrodomestico.buscaEletrodomestico(eletrodomestico.getIdEletrodomestico());
+        Optional<Eletrodomestico> eletrodomesticoBusca = repoEletrodomestico.findById(eletrodomestico.getIdEletrodomestico());
         if(eletrodomesticoBusca == null){
             return ResponseEntity.badRequest().body("Eletrodoméstico não encontrado");
         }
-        repoEletrodomestico.update(eletrodomestico);
+//        repoEletrodomestico.update(eletrodomestico);
         return ResponseEntity.ok("Eletrodoméstico atualizado com sucesso!");
     }
 
@@ -85,9 +81,9 @@ public class EletrodomesticoController {
     public ResponseEntity delete(@PathVariable UUID id){
 
         var eletrodomesticoBusca = repoEletrodomestico.
-                buscaEletrodomestico(id);
+                findById(id);
         if (eletrodomesticoBusca.isPresent()){
-            repoEletrodomestico.delete(id);
+           // repoEletrodomestico.delete(id);
             return ResponseEntity.ok("Excluído com sucesso!");
         }else{
             return ResponseEntity.badRequest().body("Endereço não encontrado!");

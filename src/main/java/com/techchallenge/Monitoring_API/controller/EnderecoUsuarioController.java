@@ -4,15 +4,15 @@ import com.googlecode.jmapper.JMapper;
 import com.techchallenge.Monitoring_API.controller.form.EnderecoUsuarioForm;
 import com.techchallenge.Monitoring_API.domain.EnderecoUsuario;
 import com.techchallenge.Monitoring_API.repositorio.RepositorioEnderecoUsuario;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Path;
+import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Path;
-import javax.validation.Validator;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -28,13 +28,9 @@ public class EnderecoUsuarioController {
     @Autowired
     private RepositorioEnderecoUsuario repoEndereco;
     @Autowired
-    private JMapper<EnderecoUsuario, EnderecoUsuarioForm> enderecoUsuarioMapper;
-    @Autowired
     private Validator validator;
-    public EnderecoUsuarioController(RepositorioEnderecoUsuario repoEndereco,
-                                     JMapper<EnderecoUsuario, EnderecoUsuarioForm> enderecoUsuarioMapper){
+    public EnderecoUsuarioController(RepositorioEnderecoUsuario repoEndereco){
         this.repoEndereco = repoEndereco;
-        this.enderecoUsuarioMapper = enderecoUsuarioMapper;
     }
     @GetMapping
     public ResponseEntity consultarEnderecos(){
@@ -76,7 +72,7 @@ public class EnderecoUsuarioController {
         if(!violacoesToMap.isEmpty()){
             return ResponseEntity.badRequest().body(violacoesToMap);
         }
-        var enderecoUsuario = enderecoUsuarioMapper.getDestination(enderecoUsuarioForm);
+        var enderecoUsuario = enderecoUsuarioForm.toEndereco(enderecoUsuarioForm);
 
         repoEndereco.save(enderecoUsuario);
         return ResponseEntity.ok("Endereço adicionado com sucesso!");

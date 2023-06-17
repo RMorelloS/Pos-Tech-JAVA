@@ -1,10 +1,10 @@
 package com.techchallenge.Monitoring_API.config;
 
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.validation.Validation;
-import javax.validation.Validator;
 
 @Configuration
 public class ValidatorBean {

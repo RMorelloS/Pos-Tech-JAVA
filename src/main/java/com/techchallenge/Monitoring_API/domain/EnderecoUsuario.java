@@ -1,10 +1,9 @@
 package com.techchallenge.Monitoring_API.domain;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -15,7 +14,7 @@ public class EnderecoUsuario {
     private String rua;
     @Getter
     @Setter
-    @Min(value=0L, message = "Campo 'numero' deve ser um inteiro positivo")
+    //@Min(value=0L, message = "Campo 'numero' deve ser um inteiro positivo")
     private int numero;
     @Getter
     @Setter

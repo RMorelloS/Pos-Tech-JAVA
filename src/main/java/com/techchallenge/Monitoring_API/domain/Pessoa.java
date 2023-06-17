@@ -1,9 +1,9 @@
 package com.techchallenge.Monitoring_API.domain;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.UUID;
 

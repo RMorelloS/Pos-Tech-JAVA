@@ -1,12 +1,11 @@
 package com.techchallenge.Monitoring_API.controller.form;
 
+import com.techchallenge.Monitoring_API.domain.Pessoa;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
-import java.util.UUID;
 
 public class PessoaForm {
     public PessoaForm(String nome, LocalDate dataNascimento, String sexo, String parentescoUsuario) {
@@ -37,4 +36,10 @@ public class PessoaForm {
     private String parentescoUsuario;
 
 
+    public Pessoa getPessoa(PessoaForm pessoaForm) {
+        return new Pessoa(pessoaForm.nome,
+                pessoaForm.dataNascimento,
+                pessoaForm.sexo,
+                pessoaForm.parentescoUsuario);
+    }
 }

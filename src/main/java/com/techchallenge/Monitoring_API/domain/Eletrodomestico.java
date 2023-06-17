@@ -1,10 +1,14 @@
 package com.techchallenge.Monitoring_API.domain;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Objects;
 import java.util.UUID;
 
+@Entity
+@Table(name="tb_eletrodomestico")
 public class Eletrodomestico {
     @Getter
     @Setter
@@ -27,5 +31,7 @@ public class Eletrodomestico {
     }
 
     @Getter
+    @Id
+    @GeneratedValue(strategy= GenerationType.UUID)
     private UUID idEletrodomestico;
 }

@@ -4,14 +4,14 @@ import com.googlecode.jmapper.JMapper;
 import com.techchallenge.Monitoring_API.controller.form.PessoaForm;
 import com.techchallenge.Monitoring_API.domain.Pessoa;
 import com.techchallenge.Monitoring_API.repositorio.RepositorioPessoa;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Path;
+import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Path;
-import javax.validation.Validator;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -27,13 +27,9 @@ public class PessoaController {
     @Autowired
     private RepositorioPessoa repoPessoa;
     @Autowired
-    private JMapper<Pessoa, PessoaForm> pessoaMapper;
-    @Autowired
     private Validator validator;
-    public PessoaController(RepositorioPessoa repoPessoa,
-                                     JMapper<Pessoa, PessoaForm> pessoaMapper){
+    public PessoaController(RepositorioPessoa repoPessoa){
         this.repoPessoa = repoPessoa;
-        this.pessoaMapper = pessoaMapper;
     }
     @GetMapping
     public ResponseEntity consultarPessoas(){
@@ -51,7 +47,7 @@ public class PessoaController {
         if(!violacoesToMap.isEmpty()){
             return ResponseEntity.badRequest().body(violacoesToMap);
         }
-        var pessoa = pessoaMapper.getDestination(pessoaForm);
+        var pessoa = pessoaForm.getPessoa(pessoaForm);
 
         repoPessoa.save(pessoa);
         return ResponseEntity.ok("Endereço adicionado com sucesso!");

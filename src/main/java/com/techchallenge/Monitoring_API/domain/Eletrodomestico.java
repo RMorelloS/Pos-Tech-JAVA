@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name="tb_eletrodomestico")
-public class Eletrodomestico {
+public class Eletrodomestico    {
     @Getter
     @Setter
     private String nome;
@@ -20,6 +20,11 @@ public class Eletrodomestico {
     @Setter
     private String modelo;
 
+    @Getter
+    @Id
+    @GeneratedValue(strategy=GenerationType.UUID)
+    private UUID idEndereco;
+
     public Eletrodomestico() {
     }
 
@@ -27,11 +32,9 @@ public class Eletrodomestico {
         this.nome = nome;
         this.potencia = potencia;
         this.modelo = modelo;
-        this.idEletrodomestico = UUID.randomUUID();
+        this.idEndereco = UUID.randomUUID();
     }
 
-    @Getter
-    @Id
-    @GeneratedValue(strategy= GenerationType.UUID)
-    private UUID idEletrodomestico;
+
+
 }

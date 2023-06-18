@@ -66,28 +66,24 @@ public class PessoaController {
     public ResponseEntity update(@RequestBody Pessoa pessoa){
         Map<Path, String> violacoesToMap = validarInput(pessoa);
         if(!violacoesToMap.isEmpty()){
-            return ResponseEntity.badRequest().body(violacoesToMap);
+            //throw new ... return ResponseEntity.badRequest().body(violacoesToMap);
         }
-        Optional<Pessoa> pessoaBuscada = repoPessoa.buscaPessoa(pessoa.getIdPessoa());
+        Pessoa pessoaBuscada = repoPessoa.getOne(pessoa.getIdPessoa());
+        pessoaBuscada.setSexo(pessoa.getSexo());
+        pessoaBuscada.setNome(pessoa.getNome());
+        pessoaBuscada.setDataNascimento(pessoa.getDataNascimento());
+        pessoaBuscada.setParentescoUsuario(pessoa.getParentescoUsuario());
         if(pessoaBuscada == null){
-            return ResponseEntity.badRequest().body("Endereço não encontrado");
+            //throw new ... return ResponseEntity.badRequest().body("Endereço não encontrado");
         }
-        repoPessoa.update(pessoa);
+        pessoaBuscada = repoPessoa.save(pessoaBuscada);
+       // repoPessoa.update(pessoa);
         return ResponseEntity.ok("Endereço atualizado com sucesso!");
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity delete(@PathVariable UUID id){
-
-        var pessoaBuscada = repoPessoa.
-                buscaPessoa(id);
-        if (pessoaBuscada.isPresent()){
-            repoPessoa.delete(id);
-            return ResponseEntity.ok("Excluído com sucesso!");
-        }else{
-            return ResponseEntity.badRequest().body("Pessoa não encontrada!");
-        }
-
+    public void delete(@PathVariable UUID id){
+        repoPessoa.deleteById(id);
     }
 
 }

@@ -1,6 +1,12 @@
+
+//TODO fazer o tratamento de exceções
+//TODO fazer os relacionamentos
+//TODO testar as requisições
+//TODO criar o service
+//TODO fazer a documentação
+
 package com.techchallenge.Monitoring_API.controller;
 
-import com.googlecode.jmapper.JMapper;
 import com.techchallenge.Monitoring_API.controller.form.EnderecoUsuarioForm;
 import com.techchallenge.Monitoring_API.domain.EnderecoUsuario;
 import com.techchallenge.Monitoring_API.repositorio.RepositorioEnderecoUsuario;
@@ -9,12 +15,10 @@ import jakarta.validation.Path;
 import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -37,30 +41,6 @@ public class EnderecoUsuarioController {
         var enderecos = repoEndereco.findAll();
         if(enderecos == null || enderecos.isEmpty()){
             return ResponseEntity.ok("Sem endereços cadastrados!!");
-        }else{
-            return ResponseEntity.ok(enderecos);
-        }
-    }
-    @RequestMapping(value="/encontrarEnderecos", method = RequestMethod.GET)
-    public ResponseEntity consultarEnderecoPorParametro(@RequestParam Map<String, String> params){
-        String param = "";
-        String value = "";
-        String msgErro = "Sem endereços para o filtro especificado." +
-                "Envie o primeiro parâmetro considerando o atributo que" +
-                " será buscado (rua, cidade, ...) e o segundo parâmetro" +
-                " correspondente ao valor que será buscado ex: \"cidade\", " +
-                "\"São Paulo\"";
-
-        param = params.get("param");
-        value = params.get("value");
-
-        if(param == null || value == null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(msgErro);
-        }
-
-        var enderecos = repoEndereco.encontrarEnderecosPorParametro(param, value);
-        if(enderecos == null || enderecos.isEmpty()){
-            return ResponseEntity.ok(msgErro);
         }else{
             return ResponseEntity.ok(enderecos);
         }
@@ -88,31 +68,24 @@ public class EnderecoUsuarioController {
     }
 
     @PutMapping
-    public ResponseEntity update(@RequestBody EnderecoUsuario enderecoUsuario){
+    public EnderecoUsuario update(@RequestBody EnderecoUsuario enderecoUsuario){
             Map<Path, String> violacoesToMap = validarInput(enderecoUsuario);
         if(!violacoesToMap.isEmpty()){
-            return ResponseEntity.badRequest().body(violacoesToMap);
+         //throw new ...   return ResponseEntity.badRequest().body(violacoesToMap);
         }
-        Optional<EnderecoUsuario> endereco = repoEndereco.buscaEndereco(enderecoUsuario.getIdEndereco());
-        if(endereco == null){
-            return ResponseEntity.badRequest().body("Endereço não encontrado");
-        }
-        repoEndereco.update(enderecoUsuario);
-        return ResponseEntity.ok("Endereço atualizado com sucesso!");
+        EnderecoUsuario enderecoBusca = repoEndereco.getOne(enderecoUsuario.getIdEndereco());
+        enderecoBusca.setBairro(enderecoUsuario.getBairro());
+        enderecoBusca.setRua(enderecoUsuario.getRua());
+        enderecoBusca.setNumero(enderecoUsuario.getNumero());
+        enderecoBusca.setEstado(enderecoBusca.getEstado());
+        enderecoBusca.setCidade(enderecoBusca.getCidade());
+        enderecoBusca = repoEndereco.save(enderecoBusca);
+        return enderecoBusca;
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity delete(@PathVariable UUID id){
-
-        var usuarioBusca = repoEndereco.
-                buscaEndereco(id);
-        if (usuarioBusca.isPresent()){
-            repoEndereco.delete(id);
-            return ResponseEntity.ok("Excluído com sucesso!");
-        }else{
-            return ResponseEntity.badRequest().body("Endereço não encontrado!");
-        }
-
+    public void delete(@PathVariable UUID id){
+        repoEndereco.deleteById(id);
     }
 
 }

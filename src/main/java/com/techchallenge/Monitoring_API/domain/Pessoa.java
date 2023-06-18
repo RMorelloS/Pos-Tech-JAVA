@@ -1,5 +1,6 @@
 package com.techchallenge.Monitoring_API.domain;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +8,10 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public class Pessoa {
+@Entity
+@Table(name="tb_pessoa")
+
+public class Pessoa  {
     public Pessoa(String nome, LocalDate dataNascimento, String sexo, String parentescoUsuario) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
@@ -36,6 +40,9 @@ public class Pessoa {
     @NotBlank(message = "Campo 'parentesco' é obrigatório e não pode estar vazio")
     private String parentescoUsuario;
     @Getter
+    @Id
+    @GeneratedValue(strategy= GenerationType.UUID)
     private UUID idPessoa;
+
 
 }

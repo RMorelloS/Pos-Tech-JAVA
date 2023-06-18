@@ -1,5 +1,6 @@
 package com.techchallenge.Monitoring_API.domain;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,6 +8,8 @@ import lombok.Setter;
 import java.util.Objects;
 import java.util.UUID;
 
+@Entity
+@Table(name="tb_endereco")
 public class EnderecoUsuario {
     @Getter
     @Setter
@@ -29,15 +32,20 @@ public class EnderecoUsuario {
     @NotBlank(message = "Campo 'estado' é obrigatório e não pode estar vazio")
     private String estado;
     @Getter
-    @Setter
-    private UUID IdEndereco;
+    @Id
+    @GeneratedValue(strategy= GenerationType.UUID)
+    private UUID idEndereco;
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EnderecoUsuario that = (EnderecoUsuario) o;
-        return Objects.equals(IdEndereco, that.IdEndereco);
+        return Objects.equals(idEndereco, that.idEndereco);
+    }
+
+    public EnderecoUsuario() {
     }
 
     public EnderecoUsuario(String rua, int numero, String bairro, String cidade, String estado) {
@@ -46,6 +54,6 @@ public class EnderecoUsuario {
         this.bairro = bairro;
         this.cidade = cidade;
         this.estado = estado;
-        IdEndereco = UUID.randomUUID();
+        this.idEndereco = UUID.randomUUID();
     }
 }

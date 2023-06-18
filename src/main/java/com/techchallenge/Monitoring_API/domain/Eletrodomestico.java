@@ -4,12 +4,11 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Objects;
 import java.util.UUID;
 
 @Entity
 @Table(name="tb_eletrodomestico")
-public class Eletrodomestico    {
+public class Eletrodomestico {
     @Getter
     @Setter
     private String nome;
@@ -23,7 +22,7 @@ public class Eletrodomestico    {
     @Getter
     @Id
     @GeneratedValue(strategy=GenerationType.UUID)
-    private UUID idEndereco;
+    private UUID idEletrodomestico;
 
     public Eletrodomestico() {
     }
@@ -32,7 +31,7 @@ public class Eletrodomestico    {
         this.nome = nome;
         this.potencia = potencia;
         this.modelo = modelo;
-        this.idEndereco = UUID.randomUUID();
+        this.idEletrodomestico = UUID.randomUUID();
     }
 
 

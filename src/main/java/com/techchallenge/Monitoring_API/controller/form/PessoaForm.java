@@ -42,4 +42,11 @@ public class PessoaForm {
                 pessoaForm.sexo,
                 pessoaForm.parentescoUsuario);
     }
+
+    public Pessoa toPessoa(PessoaForm pessoaForm) {
+        return new Pessoa(pessoaForm.getNome(),
+                pessoaForm.getDataNascimento(),
+                pessoaForm.getSexo(),
+                pessoaForm.getParentescoUsuario());
+    }
 }

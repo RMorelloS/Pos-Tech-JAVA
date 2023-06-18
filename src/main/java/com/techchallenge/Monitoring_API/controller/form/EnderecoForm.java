@@ -1,11 +1,11 @@
 package com.techchallenge.Monitoring_API.controller.form;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.techchallenge.Monitoring_API.domain.EnderecoUsuario;
+import com.techchallenge.Monitoring_API.domain.Endereco;
 import lombok.Getter;
 import lombok.Setter;
 
-public class EnderecoUsuarioForm {
+public class EnderecoForm {
     @JsonProperty
     @Getter
     @Setter
@@ -27,11 +27,11 @@ public class EnderecoUsuarioForm {
     @Setter
     private String estado;
 
-    public EnderecoUsuario toEndereco(EnderecoUsuarioForm enderecoUsuarioForm) {
-        return new EnderecoUsuario(enderecoUsuarioForm.rua,
-                enderecoUsuarioForm.numero,
-                enderecoUsuarioForm.bairro,
-                enderecoUsuarioForm.cidade,
-                enderecoUsuarioForm.estado);
+    public Endereco toEndereco(EnderecoForm enderecoForm) {
+        return new Endereco(enderecoForm.rua,
+                enderecoForm.numero,
+                enderecoForm.bairro,
+                enderecoForm.cidade,
+                enderecoForm.estado);
     }
 }

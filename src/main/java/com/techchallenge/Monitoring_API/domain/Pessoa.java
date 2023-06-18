@@ -11,7 +11,7 @@ import java.util.UUID;
 @Entity
 @Table(name="tb_pessoa")
 
-public class Pessoa  {
+public class Pessoa {
     public Pessoa(String nome, LocalDate dataNascimento, String sexo, String parentescoUsuario) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;

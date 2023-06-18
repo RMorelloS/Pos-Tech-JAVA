@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ValidatorBean {
 
+
+
     @Bean
     Validator validator(){
         return Validation.buildDefaultValidatorFactory().getValidator();

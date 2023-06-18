@@ -4,6 +4,7 @@ import com.googlecode.jmapper.JMapper;
 import com.techchallenge.Monitoring_API.controller.form.PessoaForm;
 import com.techchallenge.Monitoring_API.domain.Pessoa;
 import com.techchallenge.Monitoring_API.repositorio.RepositorioPessoa;
+import com.techchallenge.Monitoring_API.service.PessoaService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Path;
 import jakarta.validation.Validator;
@@ -25,15 +26,15 @@ import java.util.stream.Collectors;
 public class PessoaController {
 
     @Autowired
-    private RepositorioPessoa repoPessoa;
+    private PessoaService pessoaService;
     @Autowired
     private Validator validator;
-    public PessoaController(RepositorioPessoa repoPessoa){
-        this.repoPessoa = repoPessoa;
+    public PessoaController(PessoaService pessoaService){
+        this.pessoaService = pessoaService;
     }
     @GetMapping
     public ResponseEntity consultarPessoas(){
-        var pessoas = repoPessoa.findAll();
+        var pessoas = pessoaService.findAll();
         if(pessoas == null || pessoas.isEmpty()){
             return ResponseEntity.ok("Sem endereços cadastrados!!");
         }else{
@@ -43,47 +44,22 @@ public class PessoaController {
 
     @PostMapping
     public ResponseEntity criarPessoa(@RequestBody PessoaForm pessoaForm){
-        Map<Path, String> violacoesToMap = validarInput(pessoaForm);
-        if(!violacoesToMap.isEmpty()){
-            return ResponseEntity.badRequest().body(violacoesToMap);
-        }
-        var pessoa = pessoaForm.getPessoa(pessoaForm);
 
-        repoPessoa.save(pessoa);
+        pessoaService.save(pessoaForm);
         return ResponseEntity.ok("Endereço adicionado com sucesso!");
     }
 
-    private <T> Map<Path, String> validarInput(T form) {
-        Set<ConstraintViolation<T>> violacoes = validator.validate(form);
-        Map<Path, String> violacoesToMap = violacoes.stream()
-                .collect(Collectors.toMap(
-                        violacao -> violacao.getPropertyPath(), violacao -> violacao.getMessage()
-                ));
-        return violacoesToMap;
-    }
+
 
     @PutMapping
     public ResponseEntity update(@RequestBody Pessoa pessoa){
-        Map<Path, String> violacoesToMap = validarInput(pessoa);
-        if(!violacoesToMap.isEmpty()){
-            //throw new ... return ResponseEntity.badRequest().body(violacoesToMap);
-        }
-        Pessoa pessoaBuscada = repoPessoa.getOne(pessoa.getIdPessoa());
-        pessoaBuscada.setSexo(pessoa.getSexo());
-        pessoaBuscada.setNome(pessoa.getNome());
-        pessoaBuscada.setDataNascimento(pessoa.getDataNascimento());
-        pessoaBuscada.setParentescoUsuario(pessoa.getParentescoUsuario());
-        if(pessoaBuscada == null){
-            //throw new ... return ResponseEntity.badRequest().body("Endereço não encontrado");
-        }
-        pessoaBuscada = repoPessoa.save(pessoaBuscada);
-       // repoPessoa.update(pessoa);
+        pessoaService.update(pessoa);
         return ResponseEntity.ok("Endereço atualizado com sucesso!");
     }
 
     @DeleteMapping("{id}")
     public void delete(@PathVariable UUID id){
-        repoPessoa.deleteById(id);
+        pessoaService.delete(id);
     }
 
 }

@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name="tb_endereco")
-public class EnderecoUsuario {
+public class Endereco {
     @Getter
     @Setter
     @NotBlank(message = "Campo 'rua' é obrigatório e não pode estar vazio")
@@ -41,14 +41,14 @@ public class EnderecoUsuario {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        EnderecoUsuario that = (EnderecoUsuario) o;
+        Endereco that = (Endereco) o;
         return Objects.equals(idEndereco, that.idEndereco);
     }
 
-    public EnderecoUsuario() {
+    public Endereco() {
     }
 
-    public EnderecoUsuario(String rua, int numero, String bairro, String cidade, String estado) {
+    public Endereco(String rua, int numero, String bairro, String cidade, String estado) {
         this.rua = rua;
         this.numero = numero;
         this.bairro = bairro;

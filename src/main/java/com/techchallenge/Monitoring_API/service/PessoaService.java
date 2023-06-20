@@ -4,7 +4,8 @@ import com.techchallenge.Monitoring_API.controller.form.PessoaForm;
 import com.techchallenge.Monitoring_API.domain.Pessoa;
 import com.techchallenge.Monitoring_API.repositorio.RepositorioPessoa;
 import com.techchallenge.Monitoring_API.service.exception.ControllerNotFoundException;
-import com.techchallenge.Monitoring_API.service.exception.ValidationErrorException;
+import com.techchallenge.Monitoring_API.service.exception.DatabaseException;
+import com.techchallenge.Monitoring_API.service.exception.ValidationException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Path;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class PessoaService {
     public Pessoa save(PessoaForm pessoaForm) {
         Map<Path, String> violacoesToMap = validatorService.validarInput(pessoaForm);
         if(!violacoesToMap.isEmpty()){
-            throw new ValidationErrorException("Erro na validação dos campos: " + violacoesToMap);
+            throw new ValidationException("Erro na validação dos campos: " + violacoesToMap);
         }
         var pessoa = pessoaForm.toPessoa(pessoaForm);
         repoPessoa.save(pessoa);
@@ -40,7 +41,7 @@ public class PessoaService {
         try {
             Map<Path, String> violacoesToMap = validatorService.validarInput(pessoa);
             if (!violacoesToMap.isEmpty()) {
-                throw new ValidationErrorException("Erro na validação dos campos: " + violacoesToMap);
+                throw new ValidationException("Erro na validação dos campos: " + violacoesToMap);
             }
 
             Pessoa pessoaBusca = repoPessoa.getOne(pessoa.getIdPessoa());
@@ -51,7 +52,7 @@ public class PessoaService {
             pessoaBusca = repoPessoa.save(pessoaBusca);
             return pessoaBusca;
         }catch(EntityNotFoundException e){
-            throw new ControllerNotFoundException("Endereço não encontrado, id:" + pessoa.getIdPessoa());
+            throw new ControllerNotFoundException("Pessoa não encontrado, id:" + pessoa.getIdPessoa());
         }
     }
 
@@ -59,9 +60,13 @@ public class PessoaService {
         try{
             repoPessoa.deleteById(id);
         }catch(EmptyResultDataAccessException e){
-            throw new EntityNotFoundException("Pessoa não encontrada com id: " + id);
+            throw new ControllerNotFoundException("Pessoa não encontrada com id: " + id);
         }catch(DataIntegrityViolationException e){
-            throw new EntityNotFoundException("Violação de integridade da base");
+            throw new DatabaseException("Violação de integridade da base");
         }
+    }
+    public Pessoa findById(UUID id) {
+        var pessoa = repoPessoa.findById(id).orElseThrow(() -> new ControllerNotFoundException("Pessoa não encontrada"));
+        return pessoa;
     }
 }

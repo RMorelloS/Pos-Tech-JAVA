@@ -1,13 +1,13 @@
 
-//TODO fazer os relacionamentos
-//TODO testar as requisições
 //TODO fazer a documentação
 
-package com.techchallenge.Monitoring_API.controller;
+    package com.techchallenge.Monitoring_API.controller;
 
 import com.techchallenge.Monitoring_API.controller.form.EnderecoForm;
+import com.techchallenge.Monitoring_API.domain.Eletrodomestico;
 import com.techchallenge.Monitoring_API.domain.Endereco;
 import com.techchallenge.Monitoring_API.service.EnderecoService;
+import com.techchallenge.Monitoring_API.service.exception.ControllerNotFoundException;
 import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -38,7 +38,12 @@ public class EnderecoController {
             return ResponseEntity.ok(enderecos);
         }
     }
+    @GetMapping("{id}")
+    public ResponseEntity findById(@PathVariable UUID id){
+        var endereco = enderecoService.findById(id);
+        return ResponseEntity.ok(endereco);
 
+    }
     @PostMapping
     public ResponseEntity criarEndereco(@RequestBody EnderecoForm enderecoForm){
 

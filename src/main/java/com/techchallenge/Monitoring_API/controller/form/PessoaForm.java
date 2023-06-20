@@ -2,6 +2,8 @@ package com.techchallenge.Monitoring_API.controller.form;
 
 import com.techchallenge.Monitoring_API.domain.Pessoa;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,7 +26,8 @@ public class PessoaForm {
     private String nome;
     @Getter
     @Setter
-    @NotBlank(message = "Campo 'data de nascimento' é obrigatório e não pode estar vazio")
+    @NotNull(message="Campo 'data de nascimento' é obrigatório e não pode estar vazio")
+    @Past(message="Data de nascimento não pode ser superior ao dia de hoje")
     private LocalDate dataNascimento;
     @Getter
     @Setter

@@ -3,23 +3,17 @@ package com.techchallenge.Monitoring_API.service;
 import com.techchallenge.Monitoring_API.controller.form.EnderecoForm;
 import com.techchallenge.Monitoring_API.domain.Endereco;
 import com.techchallenge.Monitoring_API.repositorio.RepositorioEndereco;
-import com.techchallenge.Monitoring_API.repositorio.RepositorioEndereco;
 import com.techchallenge.Monitoring_API.service.exception.ControllerNotFoundException;
-import com.techchallenge.Monitoring_API.service.exception.ValidationErrorException;
+import com.techchallenge.Monitoring_API.service.exception.DatabaseException;
+import com.techchallenge.Monitoring_API.service.exception.ValidationException;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Path;
-import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Service
 public class EnderecoService {
@@ -35,7 +29,7 @@ public class EnderecoService {
     public Endereco save(EnderecoForm EnderecoForm) {
         Map<Path, String> violacoesToMap = validatorService.validarInput(EnderecoForm);
         if(!violacoesToMap.isEmpty()){
-            throw new ValidationErrorException("Erro na validação dos campos: " + violacoesToMap);
+            throw new ValidationException("Erro na validação dos campos: " + violacoesToMap);
         }
         var endereco = EnderecoForm.toEndereco(EnderecoForm);
         repoEndereco.save(endereco);
@@ -47,7 +41,7 @@ public class EnderecoService {
         try{
             Map<Path, String> violacoesToMap = validatorService.validarInput(endereco);
             if(!violacoesToMap.isEmpty()){
-                throw new ValidationErrorException("Erro na validação dos campos: " + violacoesToMap);
+                throw new ValidationException("Erro na validação dos campos: " + violacoesToMap);
             }
 
             Endereco enderecoBusca = repoEndereco.getOne(endereco.getIdEndereco());
@@ -68,9 +62,14 @@ public class EnderecoService {
         try {
             repoEndereco.deleteById(id);
         }catch(EmptyResultDataAccessException e){
-            throw new EntityNotFoundException("Endereco não encontrado com id: " + id);
+            throw new ControllerNotFoundException("Endereco não encontrado com id: " + id);
         }catch(DataIntegrityViolationException e){
-            throw new EntityNotFoundException("Violação de integridade da base");
+            throw new DatabaseException("Violação de integridade da base");
         }
+    }
+
+    public Endereco findById(UUID id) {
+        var endereco = repoEndereco.findById(id).orElseThrow(() -> new ControllerNotFoundException("Endereco não encontrado"));
+        return endereco;
     }
 }

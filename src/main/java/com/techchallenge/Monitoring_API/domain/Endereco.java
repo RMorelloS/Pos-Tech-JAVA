@@ -1,6 +1,7 @@
 package com.techchallenge.Monitoring_API.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +18,7 @@ public class Endereco {
     private String rua;
     @Getter
     @Setter
-    //@Min(value=0L, message = "Campo 'numero' deve ser um inteiro positivo")
+    @Min(value=0L, message = "Campo 'numero' deve ser um inteiro positivo")
     private int numero;
     @Getter
     @Setter

@@ -41,7 +41,12 @@ public class PessoaController {
             return ResponseEntity.ok(pessoas);
         }
     }
+    @GetMapping("{id}")
+    public ResponseEntity findById(@PathVariable UUID id){
+        var pessoa = pessoaService.findById(id);
+        return ResponseEntity.ok(pessoa);
 
+    }
     @PostMapping
     public ResponseEntity criarPessoa(@RequestBody PessoaForm pessoaForm){
 
@@ -58,8 +63,10 @@ public class PessoaController {
     }
 
     @DeleteMapping("{id}")
-    public void delete(@PathVariable UUID id){
+    public ResponseEntity delete(@PathVariable UUID id){
+
         pessoaService.delete(id);
+        return ResponseEntity.ok("Pessoa excluída com sucesso!");
     }
 
 }

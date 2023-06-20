@@ -33,6 +33,14 @@ public class EletrodomesticoController {
             return ResponseEntity.ok(eletrodomesticos);
         }
     }
+    @GetMapping("{id}")
+    public ResponseEntity findById(@PathVariable UUID id){
+        var eletrodomestico = eletroService.findById(id);
+        return ResponseEntity.ok(eletrodomestico);
+
+    }
+
+
     public EletrodomesticoController(EletrodomesticoService eletroService){
         this.eletroService = eletroService;
     }

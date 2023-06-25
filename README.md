@@ -18,13 +18,13 @@ Ressalta-se como principal desafio, ainda não resolvido, a repetição de códi
 
 Outro desafio foi a utilização do JMapper, que não possui compatibilidade com a versão JAVA utilizada. Para tanto, foram desenvolvidos os métodos toEndereco, toPessoa e toEletrodomestico nos serviços respectivos. Estes métodos possibilitaram travar parâmetros de entrada pelo usuário, impedindo que o usuário pudesse configurar o id dos objetos, por exemplo.
 
-## Descrição das APIs
+# Descrição das APIs
 
-### Cadastro de Eletrodomésticos
+## Cadastro de Eletrodomésticos
 
 A API cadastro de eletrodomésticos permite armazenar as seguintes informações: nome, modelo e potência.
 
-1. Para gravar um eletrodoméstico, utilizar uma requisição do tipo POST, passando informações como:
+### 1. Para gravar um eletrodoméstico, utilizar uma requisição do tipo POST, passando informações como:
 ```bash
 curl --location 'localhost:8080/eletrodomestico' \
 --header 'Content-Type: application/json' \
@@ -54,7 +54,7 @@ Nesta requisição, ressalta-se que apenas os campos permitidos são cadastrados
 }
 ```
 
-2. Para ler os eletrodomésticos cadastrados, utilizar uma requisição do tipo GET:
+### 2. Para ler os eletrodomésticos cadastrados, utilizar uma requisição do tipo GET:
 
 ```bash
 curl --location 'localhost:8080/eletrodomestico'
@@ -73,7 +73,7 @@ curl --location 'localhost:8080/eletrodomestico'
 ]
 ```
 
-3. Para ler um eletrodoméstico específico, utilizar uma requisição do tipo GET, passando um id como parâmetro:
+### 3. Para ler um eletrodoméstico específico, utilizar uma requisição do tipo GET, passando um id como parâmetro:
 
 ```bash
 curl --location 'localhost:8080/eletrodomestico/c88f374b-7d7f-4f7b-a484-3d80301d2134'
@@ -90,7 +90,7 @@ curl --location 'localhost:8080/eletrodomestico/c88f374b-7d7f-4f7b-a484-3d80301d
 }
 ```
 
-4. Para atualizar um eletrodoméstico, utilizar uma requisição do tipo PUT, passando as informações, incluindo o id do objeto a ser atualizado:
+### 4. Para atualizar um eletrodoméstico, utilizar uma requisição do tipo PUT, passando as informações, incluindo o id do objeto a ser atualizado:
 
 ```bash
 curl --location --request PUT 'localhost:8080/eletrodomestico' \
@@ -114,7 +114,7 @@ curl --location --request PUT 'localhost:8080/eletrodomestico' \
 ```
 
 
-5. Para excluir um eletrodoméstico, utilizar uma requisição do tipo DELETE, passando um id como parâmetro:
+### 5. Para excluir um eletrodoméstico, utilizar uma requisição do tipo DELETE, passando um id como parâmetro:
 ```bash
 curl --location --request DELETE 'localhost:8080/eletrodomestico/c88f374b-7d7f-4f7b-a484-3d80301d2134'
 ```

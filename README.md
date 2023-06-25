@@ -38,25 +38,60 @@ curl --location 'localhost:8080/eletrodomestico' \
 Nesta requisição, ressalta-se que apenas os campos permitidos são cadastrados. No exemplo, há a tentativa de submeter um id pelo usuário, que é bloqueado pelo uso de DTO's. 
 
 **Saída: retorno 200 - OK ou erro de validação, caso algum dos campos não atenda aos requisitos necessários**
-Em caso de sucesso:
 
+**Em caso de sucesso:**
 ![image](https://github.com/RMorelloS/Pos_Tech_Fase_1/assets/32580031/39768dba-e002-4f82-a7c1-01c0648f11ee)
 
-Em caso de erro:
+**Em caso de erro:**
 
-![image](https://github.com/RMorelloS/Pos_Tech_Fase_1/assets/32580031/8f6e1466-b73d-4ce5-9b5d-f233c25b3bd8)
+```json
+{
+    "timestamp": "2023-06-25T21:19:45.789570700Z",
+    "status": null,
+    "error": "Erro na validação de campos",
+    "message": "Erro na validação dos campos: {nome=Campo 'nome' é obrigatório e não pode estar vazio}",
+    "path": "/eletrodomestico"
+}
+```
 
 2. Para ler os eletrodomésticos cadastrados, utilizar uma requisição do tipo GET:
+
 ```bash
 curl --location 'localhost:8080/eletrodomestico'
 ```
 
+**Saída: retorna os eletrodomésticos cadastrados**
+
+```json
+[
+    {
+        "nome": "Fogão",
+        "potencia": 238,
+        "modelo": "Electrolux",
+        "idEletrodomestico": "ddf0097f-d55c-421d-a36d-fe962ab26cbb"
+    }
+]
+```
+
 3. Para ler um eletrodoméstico específico, utilizar uma requisição do tipo GET, passando um id como parâmetro:
+
 ```bash
 curl --location 'localhost:8080/eletrodomestico/c88f374b-7d7f-4f7b-a484-3d80301d2134'
 ```
 
+**Saída: retorna o eletrodoméstico ou mensagem de erro, caso não haja um eletrodoméstico com o id especificado**
+
+```json
+{
+    "nome": "Fogão",
+    "potencia": 238,
+    "modelo": "Electrolux",
+    "idEletrodomestico": "ddf0097f-d55c-421d-a36d-fe962ab26cbb"
+}
+```
+
 4. Para atualizar um eletrodoméstico, utilizar uma requisição do tipo PUT, passando as informações, incluindo o id do objeto a ser atualizado:
+
 ```bash
 curl --location --request PUT 'localhost:8080/eletrodomestico' \
 --header 'Content-Type: application/json' \
@@ -67,8 +102,24 @@ curl --location --request PUT 'localhost:8080/eletrodomestico' \
     "idEletrodomestico": "c88f374b-7d7f-4f7b-a484-3d80301d2134"
 }'
 ```
+**Saída: objeto eletrodoméstico atualizado**
+
+```json
+{
+    "nome": "Geladeira",
+    "potencia": 110,
+    "modelo": "Electrolux",
+    "idEletrodomestico": "ddf0097f-d55c-421d-a36d-fe962ab26cbb"
+}
+```
+
 
 5. Para excluir um eletrodoméstico, utilizar uma requisição do tipo DELETE, passando um id como parâmetro:
 ```bash
 curl --location --request DELETE 'localhost:8080/eletrodomestico/c88f374b-7d7f-4f7b-a484-3d80301d2134'
 ```
+**Saída: retorna 200 - OK ou mensagem de erro, caso não haja um eletrodoméstico com o id especificado**
+
+![image](https://github.com/RMorelloS/Pos_Tech_Fase_1/assets/32580031/5d2e2132-f3eb-4fa3-9113-253bbade14d5)
+
+

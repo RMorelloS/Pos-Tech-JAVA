@@ -123,3 +123,105 @@ curl --location --request DELETE 'localhost:8080/eletrodomestico/c88f374b-7d7f-4
 ![image](https://github.com/RMorelloS/Pos_Tech_Fase_1/assets/32580031/5d2e2132-f3eb-4fa3-9113-253bbade14d5)
 
 
+## Cadastro de Pessoas
+
+
+A API cadastro de pessoas permite armazenar as seguintes informações: nome, data de nascimento, sexo e parentesco com o usuário.
+
+### 1. Para gravar uma pessoa, utilizar uma requisição do tipo POST, passando informações como:
+
+```bash
+curl --location 'localhost:8080/pessoa' \
+--header 'Content-Type: application/json' \
+--data '{
+    "nome": "Ricardo",
+    "dataNascimento": "1998-05-29",
+    "sexo": "M",
+    "parentescoUsuario": "Irmão",
+    "idPessoa": "aaaa"
+}'
+```
+
+**Saída: retorno 200 - OK ou erro de validação, caso algum dos campos não atenda aos requisitos necessários**
+
+**Em caso de sucesso:**
+![image](https://github.com/RMorelloS/Pos_Tech_Fase_1/assets/32580031/29e7a00d-2a79-4a9c-8e4b-a660b0cb5f95)
+
+**Em caso de erro:**
+{
+    "timestamp": "2023-06-25T21:27:10.164262400Z",
+    "status": null,
+    "error": "Erro na validação de campos",
+    "message": "Erro na validação dos campos: {nome=Campo 'nome' é obrigatório e não pode estar vazio}",
+    "path": "/pessoa"
+}
+
+### 2. Para ler as pessoas cadastrados, utilizar uma requisição do tipo GET:
+
+```bash
+curl --location 'localhost:8080/pessoa'
+```
+**Saída: retorna as pessoas cadastradas**
+
+```bash
+[
+    {
+        "nome": "Ricardo",
+        "dataNascimento": "1998-05-29",
+        "sexo": "M",
+        "parentescoUsuario": "Irmão",
+        "idPessoa": "baaa8e09-186a-4bc0-a241-49ecd17d28eb"
+    }
+]
+```
+
+### 3. Para ler as informações de uma pessoa específica, utilizar uma requisição do tipo GET, passando um id como parâmetro:
+
+```bash
+curl --location 'localhost:8080/pessoa/baaa8e09-186a-4bc0-a241-49ecd17d28eb'
+```
+
+**Saída: retorna a pessoa ou mensagem de erro, caso não haja uma pessoa com o id especificado**
+```bash
+{
+    "nome": "Ricardo",
+    "dataNascimento": "1998-05-29",
+    "sexo": "M",
+    "parentescoUsuario": "Irmão",
+    "idPessoa": "baaa8e09-186a-4bc0-a241-49ecd17d28eb"
+}
+```
+
+### 4. Para atualizar as informações de uma pessoa, utilizar uma requisição do tipo PUT, passando as informações, incluindo o id do objeto a ser atualizado:
+
+```bash
+curl --location --request PUT 'localhost:8080/pessoa' \
+--header 'Content-Type: application/json' \
+--data '{
+    "nome": "Ricardo",
+    "dataNascimento": "1995-05-29",
+    "sexo": "M",
+    "parentescoUsuario": "Meio-irmão",
+    "idPessoa": "baaa8e09-186a-4bc0-a241-49ecd17d28eb"
+}
+'
+```
+**Saída: objeto pessoa atualizado**
+
+```json
+{
+    "nome": "Ricardo",
+    "dataNascimento": "1995-05-29",
+    "sexo": "M",
+    "parentescoUsuario": "Meio-irmão",
+    "idPessoa": "2c66e46b-69d2-44ce-b382-18211b309449"
+}
+```
+
+### 5. Para excluir uma pessoa, utilizar uma requisição do tipo DELETE, passando um id como parâmetro:
+```bash
+curl --location --request DELETE 'localhost:8080/pessoa/2c66e46b-69d2-44ce-b382-18211b309449'
+```
+**Saída: retorna 200 - OK ou mensagem de erro, caso não haja uma pessoa com o id especificado**
+
+![image](https://github.com/RMorelloS/Pos_Tech_Fase_1/assets/32580031/7bf66031-639b-4eef-94d9-2a713b7b918b)

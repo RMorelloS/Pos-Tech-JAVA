@@ -37,6 +37,15 @@ curl --location 'localhost:8080/eletrodomestico' \
 ```
 Nesta requisição, ressalta-se que apenas os campos permitidos são cadastrados. No exemplo, há a tentativa de submeter um id pelo usuário, que é bloqueado pelo uso de DTO's. 
 
+**Saída: retorno 200 - OK ou erro de validação, caso algum dos campos não atenda aos requisitos necessários**
+Em caso de sucesso:
+
+![image](https://github.com/RMorelloS/Pos_Tech_Fase_1/assets/32580031/39768dba-e002-4f82-a7c1-01c0648f11ee)
+
+Em caso de erro:
+
+![image](https://github.com/RMorelloS/Pos_Tech_Fase_1/assets/32580031/8f6e1466-b73d-4ce5-9b5d-f233c25b3bd8)
+
 2. Para ler os eletrodomésticos cadastrados, utilizar uma requisição do tipo GET:
 ```bash
 curl --location 'localhost:8080/eletrodomestico'

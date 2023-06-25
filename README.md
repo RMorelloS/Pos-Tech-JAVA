@@ -23,3 +23,43 @@ Outro desafio foi a utilização do JMapper, que não possui compatibilidade com
 ### Cadastro de Eletrodomésticos
 
 A API cadastro de eletrodomésticos permite armazenar as seguintes informações: nome, modelo e potência.
+
+1. Para gravar um eletrodoméstico, utilizar uma requisição do tipo POST, passando informações como:
+```bash
+curl --location 'localhost:8080/eletrodomestico' \
+--header 'Content-Type: application/json' \
+--data '{
+    "nome": "Fogão",
+    "potencia": 238,
+    "modelo": "Electrolux",
+    "idEletrodomestico": "aaaa"
+}'
+```
+Nesta requisição, ressalta-se que apenas os campos permitidos são cadastrados. No exemplo, há a tentativa de submeter um id pelo usuário, que é bloqueado pelo uso de DTO's. 
+
+2. Para ler os eletrodomésticos cadastrados, utilizar uma requisição do tipo GET:
+```bash
+curl --location 'localhost:8080/eletrodomestico'
+```
+
+3. Para ler um eletrodoméstico específico, utilizar uma requisição do tipo GET, passando um id como parâmetro:
+```bash
+curl --location 'localhost:8080/eletrodomestico/c88f374b-7d7f-4f7b-a484-3d80301d2134'
+```
+
+4. Para atualizar um eletrodoméstico, utilizar uma requisição do tipo PUT, passando as informações, incluindo o id do objeto a ser atualizado:
+```bash
+curl --location --request PUT 'localhost:8080/eletrodomestico' \
+--header 'Content-Type: application/json' \
+--data '{
+    "nome": "Geladeira",
+    "potencia": 110,
+    "modelo": "Electrolux",
+    "idEletrodomestico": "c88f374b-7d7f-4f7b-a484-3d80301d2134"
+}'
+```
+
+5. Para excluir um eletrodoméstico, utilizar uma requisição do tipo DELETE, passando um id como parâmetro:
+```bash
+curl --location --request DELETE 'localhost:8080/eletrodomestico/c88f374b-7d7f-4f7b-a484-3d80301d2134'
+```

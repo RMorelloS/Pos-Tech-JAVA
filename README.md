@@ -145,7 +145,8 @@ curl --location 'localhost:8080/pessoa' \
 **Saída: retorno 200 - OK ou erro de validação, caso algum dos campos não atenda aos requisitos necessários**
 
 **Em caso de sucesso:**
-![image](https://github.com/RMorelloS/Pos_Tech_Fase_1/assets/32580031/29e7a00d-2a79-4a9c-8e4b-a660b0cb5f95)
+![image](https://github.com/RMorelloS/Pos_Tech_Fase_1/assets/32580031/470614c5-9f0c-4f43-9161-6a473d1393f2)
+
 
 **Em caso de erro:**
 {
@@ -156,7 +157,7 @@ curl --location 'localhost:8080/pessoa' \
     "path": "/pessoa"
 }
 
-### 2. Para ler as pessoas cadastrados, utilizar uma requisição do tipo GET:
+### 2. Para ler as pessoas cadastradas, utilizar uma requisição do tipo GET:
 
 ```bash
 curl --location 'localhost:8080/pessoa'
@@ -225,3 +226,122 @@ curl --location --request DELETE 'localhost:8080/pessoa/2c66e46b-69d2-44ce-b382-
 **Saída: retorna 200 - OK ou mensagem de erro, caso não haja uma pessoa com o id especificado**
 
 ![image](https://github.com/RMorelloS/Pos_Tech_Fase_1/assets/32580031/7bf66031-639b-4eef-94d9-2a713b7b918b)
+
+
+## Cadastro de Endereços 
+
+A API cadastro de endereços permite armazenar as seguintes informações: rua, numero, bairro, cidade e estado.
+
+### 1. Para gravar um endereço, utilizar uma requisição do tipo POST, passando informações como:
+
+```bash
+curl --location 'localhost:8080/endereco' \
+--header 'Content-Type: application/json' \
+--data '{
+    "rua": "Rua R1",
+    "numero": 238,
+    "bairro": "Bairro B1",
+    "cidade": "São Paulo",
+    "estado": "São Paulo",
+    "idEndereco": "b5a4b9a9-124a-4b74-a9cd-e6b440c5cab6"
+}'
+```
+
+**Saída: retorno 200 - OK ou erro de validação, caso algum dos campos não atenda aos requisitos necessários**
+
+**Em caso de sucesso:**
+![image](https://github.com/RMorelloS/Pos_Tech_Fase_1/assets/32580031/4b45f0c4-e2a9-44ab-a3f1-aa86d14524a4)
+
+**Em caso de erro:**
+```bash
+{
+    "timestamp": "2023-06-25T21:44:51.839980600Z",
+    "status": null,
+    "error": "Erro na validação de campos",
+    "message": "Erro na validação dos campos: {numero=Campo 'numero' deve ser um inteiro positivo}",
+    "path": "/endereco"
+}
+```
+
+### 2. Para ler os endereços cadastrados, utilizar uma requisição do tipo GET:
+
+```bash
+curl --location 'localhost:8080/endereco'
+```
+
+**Saída: retorna os endereços cadastrados**
+
+```bash
+[
+    {
+        "rua": "Rua R1",
+        "numero": 238,
+        "bairro": "Bairro B1",
+        "cidade": "São Paulo",
+        "estado": "São Paulo",
+        "idEndereco": "ced14866-276c-4cc3-b03a-72fb1da182d4"
+    }
+]
+```
+
+### 3. Para ler as informações de um endereço específico, utilizar uma requisição do tipo GET, passando um id como parâmetro:
+
+```bash
+curl --location 'localhost:8080/endereco/ced14866-276c-4cc3-b03a-72fb1da182d4'
+```
+**Saída: retorna o endereço ou mensagem de erro, caso não haja um endereço com o id especificado**
+
+```bash
+{
+    "rua": "Rua R1",
+    "numero": 238,
+    "bairro": "Bairro B1",
+    "cidade": "São Paulo",
+    "estado": "São Paulo",
+    "idEndereco": "ced14866-276c-4cc3-b03a-72fb1da182d4"
+}
+```
+
+### 4. Para atualizar as informações de um endereço, utilizar uma requisição do tipo PUT, passando as informações, incluindo o id do objeto a ser atualizado:
+
+```bash
+curl --location --request PUT 'localhost:8080/endereco' \
+--header 'Content-Type: application/json' \
+--data '{
+    "rua": "Rua R3",
+    "numero": 938,
+    "bairro": "Bairro PNB",
+    "cidade": "Paraná",
+    "estado": "São Paulo1",
+    "idEndereco": "ced14866-276c-4cc3-b03a-72fb1da182d4"
+}'
+```
+
+**Saída: objeto endereço atualizado**
+
+```json
+{
+    "rua": "Rua R3",
+    "numero": 938,
+    "bairro": "Bairro PNB",
+    "cidade": "São Paulo",
+    "estado": "São Paulo",
+    "idEndereco": "ced14866-276c-4cc3-b03a-72fb1da182d4"
+}
+```
+
+### 5. Para excluir um endereço, utilizar uma requisição do tipo DELETE, passando um id como parâmetro:
+
+```bash
+curl --location --request DELETE 'localhost:8080/endereco/ced14866-276c-4cc3-b03a-72fb1da182d4'
+```
+
+**Saída: retorna 200 - OK ou mensagem de erro, caso não haja um endereço com o id especificado**
+
+![image](https://github.com/RMorelloS/Pos_Tech_Fase_1/assets/32580031/21ed6a8f-3279-4cbc-b136-d4c8eef0d396)
+
+
+
+
+
+

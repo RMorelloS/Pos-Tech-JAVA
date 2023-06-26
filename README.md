@@ -149,6 +149,7 @@ curl --location 'localhost:8080/pessoa' \
 
 
 **Em caso de erro:**
+```json
 {
     "timestamp": "2023-06-25T21:27:10.164262400Z",
     "status": null,
@@ -156,7 +157,7 @@ curl --location 'localhost:8080/pessoa' \
     "message": "Erro na validação dos campos: {nome=Campo 'nome' é obrigatório e não pode estar vazio}",
     "path": "/pessoa"
 }
-
+```
 ### 2. Para ler as pessoas cadastradas, utilizar uma requisição do tipo GET:
 
 ```bash

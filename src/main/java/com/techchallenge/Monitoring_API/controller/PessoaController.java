@@ -36,7 +36,7 @@ public class PessoaController {
     public ResponseEntity consultarPessoas(){
         var pessoas = pessoaService.findAll();
         if(pessoas == null || pessoas.isEmpty()){
-            return ResponseEntity.ok("Sem endereços cadastrados!!");
+            return ResponseEntity.ok("Sem pessoas cadastradas!!");
         }else{
             return ResponseEntity.ok(pessoas);
         }
@@ -51,15 +51,14 @@ public class PessoaController {
     public ResponseEntity criarPessoa(@RequestBody PessoaForm pessoaForm){
 
         pessoaService.save(pessoaForm);
-        return ResponseEntity.ok("Endereço adicionado com sucesso!");
+        return ResponseEntity.ok("Pessoa adicionada com sucesso!");
     }
 
 
 
     @PutMapping
-    public ResponseEntity update(@RequestBody Pessoa pessoa){
-        pessoaService.update(pessoa);
-        return ResponseEntity.ok("Endereço atualizado com sucesso!");
+    public Pessoa update(@RequestBody Pessoa pessoa){
+        return pessoaService.update(pessoa);
     }
 
     @DeleteMapping("{id}")

@@ -1,5 +1,7 @@
 package com.techchallenge.Monitoring_API.controller.form;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.techchallenge.Monitoring_API.domain.Endereco;
 import com.techchallenge.Monitoring_API.domain.Pessoa;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -38,18 +40,24 @@ public class PessoaForm {
     @NotBlank(message = "Campo 'parentesco' é obrigatório e não pode estar vazio")
     private String parentescoUsuario;
 
+    @JsonProperty
+    @Getter
+    @Setter
+    private Endereco endereco;
 
     public Pessoa getPessoa(PessoaForm pessoaForm) {
         return new Pessoa(pessoaForm.nome,
                 pessoaForm.dataNascimento,
                 pessoaForm.sexo,
-                pessoaForm.parentescoUsuario);
+                pessoaForm.parentescoUsuario,
+                pessoaForm.getEndereco());
     }
 
     public Pessoa toPessoa(PessoaForm pessoaForm) {
         return new Pessoa(pessoaForm.getNome(),
                 pessoaForm.getDataNascimento(),
                 pessoaForm.getSexo(),
-                pessoaForm.getParentescoUsuario());
+                pessoaForm.getParentescoUsuario(),
+                pessoaForm.getEndereco());
     }
 }

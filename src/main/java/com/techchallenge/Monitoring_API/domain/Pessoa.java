@@ -1,5 +1,6 @@
 package com.techchallenge.Monitoring_API.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -14,12 +15,15 @@ import java.util.UUID;
 @Table(name="tb_pessoa")
 
 public class Pessoa {
-    public Pessoa(String nome, LocalDate dataNascimento, String sexo, String parentescoUsuario) {
+    public Pessoa(String nome, LocalDate dataNascimento,
+                  String sexo, String parentescoUsuario,
+                  Endereco endereco) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.sexo = sexo;
         this.parentescoUsuario = parentescoUsuario;
         this.idPessoa = UUID.randomUUID();
+        this.endereco = endereco;
     }
 
     public Pessoa() {
@@ -47,5 +51,11 @@ public class Pessoa {
     @GeneratedValue(strategy= GenerationType.UUID)
     private UUID idPessoa;
 
+    @Getter
+    @Setter
+    @JsonProperty
+    @ManyToOne
+    @JoinColumn(name="idEndereco", referencedColumnName = "idEndereco")
+    private Endereco endereco;
 
 }

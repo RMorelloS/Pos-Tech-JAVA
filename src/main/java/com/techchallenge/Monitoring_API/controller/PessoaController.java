@@ -34,7 +34,7 @@ public class PessoaController {
     }
     @GetMapping
     public ResponseEntity consultarPessoas(){
-        var pessoas = pessoaService.findAll();
+            var pessoas = pessoaService.findAll();
         if(pessoas == null || pessoas.isEmpty()){
             return ResponseEntity.ok("Sem pessoas cadastradas!!");
         }else{
@@ -50,7 +50,7 @@ public class PessoaController {
     @PostMapping
     public ResponseEntity criarPessoa(@RequestBody PessoaForm pessoaForm){
 
-        pessoaService.save(pessoaForm);
+            pessoaService.save(pessoaForm);
         return ResponseEntity.ok("Pessoa adicionada com sucesso!");
     }
 

@@ -5,6 +5,7 @@ import com.techchallenge.Monitoring_API.domain.Eletrodomestico;
 import com.techchallenge.Monitoring_API.repositorio.RepositorioEletrodomestico;
 import com.techchallenge.Monitoring_API.service.exception.ControllerNotFoundException;
 import com.techchallenge.Monitoring_API.service.exception.DatabaseException;
+import com.techchallenge.Monitoring_API.service.exception.JpaObjectRetrievalFailureException;
 import com.techchallenge.Monitoring_API.service.exception.ValidationException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Path;
@@ -34,7 +35,15 @@ public class EletrodomesticoService {
             throw new ValidationException("Erro na validação dos campos: " + violacoesToMap);
         }
         var eletrodomestico = eletrodomesticoForm.toEletrodomestico(eletrodomesticoForm);
-        repoEletrodomestico.save(eletrodomestico);
+        try{
+            repoEletrodomestico.save(eletrodomestico);
+        }catch(org.springframework.orm.jpa.JpaObjectRetrievalFailureException e){
+            throw new com.techchallenge.Monitoring_API.service
+                    .exception
+                    .JpaObjectRetrievalFailureException("Erro de integridade" +
+                    " no cadastro do eletrodoméstico. Identificador do endereço não" +
+                    " encontrado.");
+        }
         return eletrodomestico;
     }
     public Eletrodomestico update(Eletrodomestico eletrodomestico) {
@@ -48,10 +57,17 @@ public class EletrodomesticoService {
             eletrodomesticoBusca.setModelo(eletrodomestico.getModelo());
             eletrodomesticoBusca.setPotencia(eletrodomestico.getPotencia());
             eletrodomesticoBusca.setNome(eletrodomestico.getNome());
+            eletrodomesticoBusca.setEndereco(eletrodomestico.getEndereco());
             eletrodomesticoBusca = repoEletrodomestico.save(eletrodomesticoBusca);
             return eletrodomesticoBusca;
         }catch(EntityNotFoundException e){
             throw new ControllerNotFoundException("Eletrodomestico não encontrado, id:" + eletrodomestico.getIdEletrodomestico());
+        }catch(org.springframework.orm.jpa.JpaObjectRetrievalFailureException e){
+            throw new com.techchallenge.Monitoring_API.service
+                    .exception
+                    .JpaObjectRetrievalFailureException("Erro de integridade" +
+                    " na atualização de cadastro do eletrodoméstico. Identificador do endereço não" +
+                    " encontrado.");
         }
     }
 

@@ -6,7 +6,9 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -37,6 +39,12 @@ public class Endereco {
     @GeneratedValue(strategy= GenerationType.UUID)
     private UUID idEndereco;
 
+    @OneToMany(mappedBy = "endereco", cascade=CascadeType.ALL)
+    private Set<Pessoa> pessoas = new HashSet<>();
+
+    @OneToMany(mappedBy = "endereco", cascade=CascadeType.ALL)
+    private Set<Eletrodomestico> eletrodomesticos = new HashSet<>();
+
 
     @Override
     public boolean equals(Object o) {
@@ -49,12 +57,17 @@ public class Endereco {
     public Endereco() {
     }
 
-    public Endereco(String rua, int numero, String bairro, String cidade, String estado) {
+    public Endereco(String rua, int numero, String bairro,
+                    String cidade, String estado,
+                    Set<Pessoa> pessoas,
+                    Set<Eletrodomestico> eletrodomesticos) {
         this.rua = rua;
         this.numero = numero;
         this.bairro = bairro;
         this.cidade = cidade;
         this.estado = estado;
         this.idEndereco = UUID.randomUUID();
+        this.pessoas = pessoas;
+        this.eletrodomesticos = eletrodomesticos;
     }
 }

@@ -6,11 +6,13 @@ import com.techchallenge.Monitoring_API.repositorio.RepositorioPessoa;
 import com.techchallenge.Monitoring_API.service.exception.ControllerNotFoundException;
 import com.techchallenge.Monitoring_API.service.exception.DatabaseException;
 import com.techchallenge.Monitoring_API.service.exception.ValidationException;
+import jakarta.persistence.Entity;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Path;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -34,7 +36,15 @@ public class PessoaService {
             throw new ValidationException("Erro na validação dos campos: " + violacoesToMap);
         }
         var pessoa = pessoaForm.toPessoa(pessoaForm);
-        repoPessoa.save(pessoa);
+        try {
+            repoPessoa.save(pessoa);
+        }catch(JpaObjectRetrievalFailureException e){
+            throw new com.techchallenge.Monitoring_API.service
+                    .exception
+                    .JpaObjectRetrievalFailureException("Erro de integridade" +
+                    " no cadastro da pessoa. Identificador do endereço não" +
+                    " encontrado.");
+        }
         return pessoa;
     }
     public Pessoa update(Pessoa pessoa) {
@@ -49,10 +59,17 @@ public class PessoaService {
             pessoaBusca.setNome(pessoa.getNome());
             pessoaBusca.setDataNascimento(pessoa.getDataNascimento());
             pessoaBusca.setParentescoUsuario(pessoa.getParentescoUsuario());
+            pessoaBusca.setEndereco(pessoa.getEndereco());
             pessoaBusca = repoPessoa.save(pessoaBusca);
             return pessoaBusca;
         }catch(EntityNotFoundException e){
             throw new ControllerNotFoundException("Pessoa não encontrado, id:" + pessoa.getIdPessoa());
+        }catch(org.springframework.orm.jpa.JpaObjectRetrievalFailureException e){
+            throw new com.techchallenge.Monitoring_API.service
+                    .exception
+                    .JpaObjectRetrievalFailureException("Erro de integridade" +
+                    " na atualização de cadastro da pessoa. Identificador do endereço não" +
+                    " encontrado.");
         }
     }
 

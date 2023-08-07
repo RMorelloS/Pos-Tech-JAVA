@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.techchallenge.Monitoring_API.domain.Eletrodomestico;
 import com.techchallenge.Monitoring_API.domain.Endereco;
 import com.techchallenge.Monitoring_API.domain.Pessoa;
+import com.techchallenge.Monitoring_API.domain.Usuario;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -47,6 +50,12 @@ public class EnderecoForm {
     @Setter
     private Set<Pessoa> pessoas = new HashSet<>();
 
+
+    @Getter
+    @Setter
+    @JsonProperty
+    private Usuario usuario;
+
     public Endereco toEndereco(EnderecoForm enderecoForm) {
         return new Endereco(enderecoForm.rua,
                 enderecoForm.numero,
@@ -54,6 +63,7 @@ public class EnderecoForm {
                 enderecoForm.cidade,
                 enderecoForm.estado,
                 enderecoForm.pessoas,
-                enderecoForm.eletrodomesticos);
+                enderecoForm.eletrodomesticos,
+                enderecoForm.usuario);
     }
 }

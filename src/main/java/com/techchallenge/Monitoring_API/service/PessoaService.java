@@ -1,6 +1,7 @@
 package com.techchallenge.Monitoring_API.service;
 
 import com.techchallenge.Monitoring_API.controller.form.PessoaForm;
+import com.techchallenge.Monitoring_API.domain.Endereco;
 import com.techchallenge.Monitoring_API.domain.Pessoa;
 import com.techchallenge.Monitoring_API.repositorio.RepositorioPessoa;
 import com.techchallenge.Monitoring_API.service.exception.ControllerNotFoundException;
@@ -15,11 +16,11 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.UUID;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
+
 public class PessoaService {
     @Autowired
     private RepositorioPessoa repoPessoa;
@@ -85,5 +86,29 @@ public class PessoaService {
     public Pessoa findById(UUID id) {
         var pessoa = repoPessoa.findById(id).orElseThrow(() -> new ControllerNotFoundException("Pessoa não encontrada"));
         return pessoa;
+    }
+
+    public List<Pessoa> findByEndereco(UUID endereco) {
+        List<Pessoa> listaPessoas = repoPessoa.findByEndereco(endereco);
+        return listaPessoas;
+    }
+
+    public List<Pessoa> findByParam(String param, String paramName) {
+        List<Pessoa> listaPessoas = new ArrayList<>();
+        switch(paramName) {
+            case "nome":
+                listaPessoas = repoPessoa.findByNome(param);
+                break;
+            case "data_nascimento":
+                listaPessoas = repoPessoa.findByDataNascimento(LocalDate.parse(param));
+                break;
+            case "sexo":
+                listaPessoas = repoPessoa.findBySexo(param);
+                break;
+            case "parentesco_usuario":
+                listaPessoas = repoPessoa.findByParentescoUsuario(param);
+                break;
+        }
+        return listaPessoas;
     }
 }

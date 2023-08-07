@@ -64,7 +64,11 @@ public class EletrodomesticoController {
     public ResponseEntity delete(@PathVariable UUID id){
         eletroService.delete(id);
         return ResponseEntity.ok("Eletrodoméstico deletado com sucesso!");
+    }
 
+    @RequestMapping(path="/encontrarEletrodomesticos/{paramName}/{param}", method=RequestMethod.GET)
+    public ResponseEntity findByParam(@PathVariable String paramName, @PathVariable String param){
+        return ResponseEntity.ok(eletroService.findByParam(param, paramName));
     }
 
 }

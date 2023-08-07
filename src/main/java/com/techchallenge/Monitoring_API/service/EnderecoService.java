@@ -72,4 +72,27 @@ public class EnderecoService {
         var endereco = repoEndereco.findById(id).orElseThrow(() -> new ControllerNotFoundException("Endereco não encontrado"));
         return endereco;
     }
+
+    public List<Endereco> findByParam(String param, String paramName){
+        List<Endereco> listaEnderecos = new ArrayList<>();
+        switch(paramName) {
+            case "rua":
+                listaEnderecos = repoEndereco.findByRua(param);
+                break;
+            case "bairro":
+                listaEnderecos = repoEndereco.findByBairro(param);
+                break;
+            case "cidade":
+                listaEnderecos = repoEndereco.findByCidade(param);
+                break;
+            case "estado":
+                listaEnderecos = repoEndereco.findByEstado(param);
+                break;
+        }
+        return listaEnderecos;
+    }
+
+    private List<Endereco> findByRua(String rua){
+        return repoEndereco.findByRua(rua);
+    }
 }

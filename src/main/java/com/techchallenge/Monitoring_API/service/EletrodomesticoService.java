@@ -2,6 +2,7 @@ package com.techchallenge.Monitoring_API.service;
 
 import com.techchallenge.Monitoring_API.controller.form.EletrodomesticoForm;
 import com.techchallenge.Monitoring_API.domain.Eletrodomestico;
+import com.techchallenge.Monitoring_API.domain.Endereco;
 import com.techchallenge.Monitoring_API.repositorio.RepositorioEletrodomestico;
 import com.techchallenge.Monitoring_API.service.exception.ControllerNotFoundException;
 import com.techchallenge.Monitoring_API.service.exception.DatabaseException;
@@ -14,9 +15,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class EletrodomesticoService {
@@ -84,5 +83,21 @@ public class EletrodomesticoService {
     public Eletrodomestico findById(UUID id) {
         var eletro = repoEletrodomestico.findById(id).orElseThrow(() -> new ControllerNotFoundException("Eletrodomestico não encontrado"));
         return eletro;
+    }
+
+    public List<Eletrodomestico> findByParam(String param, String paramName) {
+        List<Eletrodomestico> listaEletrodomesticos = new ArrayList<>();
+        switch(paramName) {
+            case "nome":
+                listaEletrodomesticos = repoEletrodomestico.findByNome(param);
+                break;
+            case "modelo":
+                listaEletrodomesticos = repoEletrodomestico.findByModelo(param);
+                break;
+            case "potencia":
+                listaEletrodomesticos = repoEletrodomestico.findByPotencia(Integer.valueOf(param));
+                break;
+        }
+        return listaEletrodomesticos;
     }
 }

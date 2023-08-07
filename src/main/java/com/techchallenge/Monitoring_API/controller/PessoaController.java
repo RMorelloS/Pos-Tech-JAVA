@@ -5,19 +5,15 @@ import com.techchallenge.Monitoring_API.controller.form.PessoaForm;
 import com.techchallenge.Monitoring_API.domain.Pessoa;
 import com.techchallenge.Monitoring_API.repositorio.RepositorioPessoa;
 import com.techchallenge.Monitoring_API.service.PessoaService;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Path;
+
 import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/pessoa")
@@ -66,6 +62,11 @@ public class PessoaController {
 
         pessoaService.delete(id);
         return ResponseEntity.ok("Pessoa excluída com sucesso!");
+    }
+
+    @RequestMapping(path="/encontrarPessoas/{paramName}/{param}", method=RequestMethod.GET)
+    public ResponseEntity findByParam(@PathVariable String paramName, @PathVariable String param){
+        return ResponseEntity.ok(pessoaService.findByParam(param, paramName));
     }
 
 }

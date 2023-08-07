@@ -1,5 +1,6 @@
 package com.techchallenge.Monitoring_API.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -46,6 +47,14 @@ public class Endereco {
     private Set<Eletrodomestico> eletrodomesticos = new HashSet<>();
 
 
+    @Getter
+    @Setter
+    @JsonProperty
+    @ManyToOne
+    @JoinColumn(name="idUsuario", referencedColumnName = "idUsuario")
+    private Usuario usuario;
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -60,7 +69,7 @@ public class Endereco {
     public Endereco(String rua, int numero, String bairro,
                     String cidade, String estado,
                     Set<Pessoa> pessoas,
-                    Set<Eletrodomestico> eletrodomesticos) {
+                    Set<Eletrodomestico> eletrodomesticos, Usuario usuario) {
         this.rua = rua;
         this.numero = numero;
         this.bairro = bairro;
@@ -69,5 +78,6 @@ public class Endereco {
         this.idEndereco = UUID.randomUUID();
         this.pessoas = pessoas;
         this.eletrodomesticos = eletrodomesticos;
+        this.usuario = usuario;
     }
 }

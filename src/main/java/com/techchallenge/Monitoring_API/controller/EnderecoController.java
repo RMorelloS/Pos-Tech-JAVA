@@ -6,6 +6,7 @@
 import com.techchallenge.Monitoring_API.controller.form.EnderecoForm;
 import com.techchallenge.Monitoring_API.domain.Eletrodomestico;
 import com.techchallenge.Monitoring_API.domain.Endereco;
+import com.techchallenge.Monitoring_API.repositorio.RepositorioEndereco;
 import com.techchallenge.Monitoring_API.service.EnderecoService;
 import com.techchallenge.Monitoring_API.service.exception.ControllerNotFoundException;
 import jakarta.validation.Validator;
@@ -63,6 +64,10 @@ public class EnderecoController {
     public ResponseEntity<String> delete(@PathVariable UUID id){
         enderecoService.delete(id);
         return ResponseEntity.ok("Endereço deletado com sucesso!");
+    }
+    @RequestMapping(path="/encontrarEnderecos/{paramName}/{param}", method=RequestMethod.GET)
+    public ResponseEntity findByParam(@PathVariable String paramName, @PathVariable String param){
+        return ResponseEntity.ok(enderecoService.findByParam(param, paramName));
     }
 
 }

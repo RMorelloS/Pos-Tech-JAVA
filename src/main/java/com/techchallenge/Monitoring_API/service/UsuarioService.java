@@ -1,6 +1,7 @@
 package com.techchallenge.Monitoring_API.service;
 
 import com.techchallenge.Monitoring_API.controller.form.UsuarioForm;
+import com.techchallenge.Monitoring_API.domain.Eletrodomestico;
 import com.techchallenge.Monitoring_API.domain.Endereco;
 import com.techchallenge.Monitoring_API.domain.Pessoa;
 import com.techchallenge.Monitoring_API.domain.Usuario;
@@ -27,6 +28,8 @@ public class UsuarioService {
     private ValidatorService validatorService;
     @Autowired
     private PessoaService pessoaService;
+    @Autowired
+    private EletrodomesticoService eletroService;
     public Collection<Usuario> findAll() {
         return repoUsuario.findAll();
     }
@@ -84,5 +87,11 @@ public class UsuarioService {
         List<Pessoa> listaPessoas = new ArrayList<Pessoa>();
         listaPessoas = pessoaService.findByEndereco(endereco);
         return listaPessoas;
+    }
+
+    public List<Eletrodomestico> listarEletros(UUID idEndereco) {
+        List<Eletrodomestico> listaEletros = new ArrayList<Eletrodomestico>();
+        listaEletros = eletroService.findByEndereco(idEndereco);
+        return listaEletros;
     }
 }

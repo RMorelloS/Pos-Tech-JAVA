@@ -2,11 +2,8 @@ package com.techchallenge.Monitoring_API.controller;
 
 import com.techchallenge.Monitoring_API.controller.form.EletrodomesticoForm;
 import com.techchallenge.Monitoring_API.domain.Eletrodomestico;
-import com.techchallenge.Monitoring_API.repositorio.RepositorioEletrodomestico;
 import com.techchallenge.Monitoring_API.service.EletrodomesticoService;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Path;
-import jakarta.validation.Validator;
+
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/eletrodomestico")
@@ -66,9 +62,16 @@ public class EletrodomesticoController {
         return ResponseEntity.ok("Eletrodoméstico deletado com sucesso!");
     }
 
-    @RequestMapping(path="/encontrarEletrodomesticos/{paramName}/{param}", method=RequestMethod.GET)
-    public ResponseEntity findByParam(@PathVariable String paramName, @PathVariable String param){
-        return ResponseEntity.ok(eletroService.findByParam(param, paramName));
+
+    @PostMapping("{id}")
+    public ResponseEntity alternarEstado(@PathVariable UUID id){
+        try {
+            Eletrodomestico eletro = eletroService.alternarEstado(id);
+            return ResponseEntity.ok(eletro);
+        }catch(Exception e){
+            throw e;
+        }
     }
+
 
 }

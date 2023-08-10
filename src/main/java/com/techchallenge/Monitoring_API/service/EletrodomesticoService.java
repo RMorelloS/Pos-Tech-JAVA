@@ -3,11 +3,9 @@ package com.techchallenge.Monitoring_API.service;
 import com.techchallenge.Monitoring_API.controller.form.EletrodomesticoForm;
 import com.techchallenge.Monitoring_API.domain.Eletrodomestico;
 import com.techchallenge.Monitoring_API.domain.Endereco;
+import com.techchallenge.Monitoring_API.domain.Pessoa;
 import com.techchallenge.Monitoring_API.repositorio.RepositorioEletrodomestico;
-import com.techchallenge.Monitoring_API.service.exception.ControllerNotFoundException;
-import com.techchallenge.Monitoring_API.service.exception.DatabaseException;
-import com.techchallenge.Monitoring_API.service.exception.JpaObjectRetrievalFailureException;
-import com.techchallenge.Monitoring_API.service.exception.ValidationException;
+import com.techchallenge.Monitoring_API.service.exception.*;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Path;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +13,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Service
@@ -84,6 +84,10 @@ public class EletrodomesticoService {
         var eletro = repoEletrodomestico.findById(id).orElseThrow(() -> new ControllerNotFoundException("Eletrodomestico não encontrado"));
         return eletro;
     }
+    public List<Eletrodomestico> findByEndereco(UUID endereco) {
+        List<Eletrodomestico> listaEletros = repoEletrodomestico.findByEndereco(endereco);
+        return listaEletros;
+    }
 
     public List<Eletrodomestico> findByParam(String param, String paramName) {
         List<Eletrodomestico> listaEletrodomesticos = new ArrayList<>();
@@ -99,5 +103,27 @@ public class EletrodomesticoService {
                 break;
         }
         return listaEletrodomesticos;
+    }
+
+    public Eletrodomestico alternarEstado(UUID id) {
+        var eletro = new Eletrodomestico();
+        try{
+            eletro = repoEletrodomestico.findById(id).orElseThrow(() -> new ControllerNotFoundException("Eletrodomestico não encontrado"));
+
+            if(!eletro.getEletro_ligado()){
+                eletro.setEletro_ligado(true);
+                eletro.setInicio_uso(LocalDateTime.now());
+                eletro.setFim_uso(null);
+            }else if(eletro.getEletro_ligado()){
+                eletro.setEletro_ligado(false);
+                eletro.setFim_uso(LocalDateTime.now());
+                eletro.setTempo_uso(eletro.getTempo_uso() + ChronoUnit.SECONDS.between(eletro.getInicio_uso(), eletro.getFim_uso()));
+            }
+            eletro = repoEletrodomestico.save(eletro);
+            return eletro;
+        }catch(EntityNotFoundException e){
+            throw new ControllerNotFoundException("Eletrodomestico não encontrado, id:" + eletro.getIdEletrodomestico());
+        }
+
     }
 }

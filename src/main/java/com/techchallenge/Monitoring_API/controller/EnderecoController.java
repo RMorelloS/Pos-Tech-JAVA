@@ -65,9 +65,6 @@ public class EnderecoController {
         enderecoService.delete(id);
         return ResponseEntity.ok("Endereço deletado com sucesso!");
     }
-    @RequestMapping(path="/encontrarEnderecos/{paramName}/{param}", method=RequestMethod.GET)
-    public ResponseEntity findByParam(@PathVariable String paramName, @PathVariable String param){
-        return ResponseEntity.ok(enderecoService.findByParam(param, paramName));
-    }
+
 
 }

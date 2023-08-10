@@ -64,9 +64,5 @@ public class PessoaController {
         return ResponseEntity.ok("Pessoa excluída com sucesso!");
     }
 
-    @RequestMapping(path="/encontrarPessoas/{paramName}/{param}", method=RequestMethod.GET)
-    public ResponseEntity findByParam(@PathVariable String paramName, @PathVariable String param){
-        return ResponseEntity.ok(pessoaService.findByParam(param, paramName));
-    }
 
 }

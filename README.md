@@ -135,6 +135,8 @@ curl --location --request DELETE 'localhost:8080/usuario/c26f3663-3b1d-4762-acea
 
 ### 6. Para listar as pessoas/eletrodomésticos associados a determinado endereço, utilizar uma requisição do tipo GET, passando o nome do objeto que se deseja buscar (pessoas ou eletro) e o ID do endereço:
 
+#### Para busca de pessoas:
+
 ```bash
 curl --location 'localhost:8080/usuario/buscarPorEndereco/pessoas/209f52c5-d1a2-443f-bd41-d8a0ee014f22'
 ```
@@ -206,7 +208,41 @@ curl --location 'localhost:8080/usuario/buscarPorEndereco/pessoas/209f52c5-d1a2-
 ]
 ```
 
+#### Para busca de eletrodomésticos:
 
+```bash
+curl --location 'localhost:8080/usuario/buscarPorEndereco/eletro/209f52c5-d1a2-443f-bd41-d8a0ee014f22'
+```
+
+**Saída: retorna a lista de eletrodomésticos associados ao endereço ou lista vazia, caso o endereço não exista**
+
+```json
+[
+    {
+        "inicio_uso": null,
+        "eletro_ligado": false,
+        "fim_uso": null,
+        "tempo_uso": 0.0,
+        "nome": "Geladeira",
+        "potencia": 110,
+        "modelo": "Electrolux",
+        "idEletrodomestico": "e0e8fd0a-6619-4140-943e-ef2d3e871949",
+        "endereco": {
+            "rua": "Avenida 1",
+            "numero": 20,
+            "bairro": "Bairro 1",
+            "cidade": "São Paulo",
+            "estado": "São Paulo",
+            "idEndereco": "209f52c5-d1a2-443f-bd41-d8a0ee014f22",
+            "usuario": {
+                "idUsuario": "d975d4d3-eb20-4dfe-b9a1-5113b8ebd2fe",
+                "loginUsuario": "ricardoms"
+            },
+            "hibernateLazyInitializer": {}
+        }
+    }
+]
+```
 
 ## Cadastro de Endereços 
 

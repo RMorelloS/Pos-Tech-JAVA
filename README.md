@@ -133,7 +133,80 @@ curl --location --request DELETE 'localhost:8080/usuario/c26f3663-3b1d-4762-acea
 
 ![image](https://github.com/RMorelloS/Pos-Tech-JAVA/assets/32580031/14449ef1-d0f6-4650-8c3c-c15bbdc43722)
 
-### 6.
+### 6. Para listar as pessoas/eletrodomésticos associados a determinado endereço, utilizar uma requisição do tipo GET, passando o nome do objeto que se deseja buscar (pessoas ou eletro) e o ID do endereço:
+
+```bash
+curl --location 'localhost:8080/usuario/buscarPorEndereco/pessoas/209f52c5-d1a2-443f-bd41-d8a0ee014f22'
+```
+
+**Saída: retorna a lista de pessoas associadas ao endereço ou lista vazia, caso o endereço não exista**
+
+```json
+[
+    {
+        "nome": "José",
+        "dataNascimento": "1998-05-29",
+        "sexo": "M",
+        "parentescoUsuario": "Irmão",
+        "idPessoa": "ab7b36b9-069d-4b86-b84e-6d2b9ea0d983",
+        "endereco": {
+            "rua": "Avenida 1",
+            "numero": 20,
+            "bairro": "Bairro 1",
+            "cidade": "São Paulo",
+            "estado": "São Paulo",
+            "idEndereco": "209f52c5-d1a2-443f-bd41-d8a0ee014f22",
+            "usuario": {
+                "idUsuario": "d975d4d3-eb20-4dfe-b9a1-5113b8ebd2fe",
+                "loginUsuario": "ricardoms"
+            },
+            "hibernateLazyInitializer": {}
+        }
+    },
+    {
+        "nome": "José",
+        "dataNascimento": "1998-05-29",
+        "sexo": "M",
+        "parentescoUsuario": "Irmão",
+        "idPessoa": "8764fe98-d3b9-4d5c-9171-d29881d37ece",
+        "endereco": {
+            "rua": "Avenida 1",
+            "numero": 20,
+            "bairro": "Bairro 1",
+            "cidade": "São Paulo",
+            "estado": "São Paulo",
+            "idEndereco": "209f52c5-d1a2-443f-bd41-d8a0ee014f22",
+            "usuario": {
+                "idUsuario": "d975d4d3-eb20-4dfe-b9a1-5113b8ebd2fe",
+                "loginUsuario": "ricardoms"
+            },
+            "hibernateLazyInitializer": {}
+        }
+    },
+    {
+        "nome": "Maria",
+        "dataNascimento": "1968-05-29",
+        "sexo": "M",
+        "parentescoUsuario": "Mãe",
+        "idPessoa": "444f1dee-d5b3-4a43-b45d-39eb03d0c57e",
+        "endereco": {
+            "rua": "Avenida 1",
+            "numero": 20,
+            "bairro": "Bairro 1",
+            "cidade": "São Paulo",
+            "estado": "São Paulo",
+            "idEndereco": "209f52c5-d1a2-443f-bd41-d8a0ee014f22",
+            "usuario": {
+                "idUsuario": "d975d4d3-eb20-4dfe-b9a1-5113b8ebd2fe",
+                "loginUsuario": "ricardoms"
+            },
+            "hibernateLazyInitializer": {}
+        }
+    },
+]
+```
+
+
 
 ## Cadastro de Endereços 
 

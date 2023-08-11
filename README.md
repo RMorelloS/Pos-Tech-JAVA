@@ -363,7 +363,7 @@ curl --location 'localhost:8080/endereco' \
 **Saída: retorno 200 - OK ou erro de validação, caso algum dos campos não atenda aos requisitos necessários ou caso não exista um usuário com o id informado**
 
 **Em caso de sucesso:**
-![image](https://github.com/RMorelloS/Pos_Tech_Fase_1/assets/32580031/4b45f0c4-e2a9-44ab-a3f1-aa86d14524a4)
+![image](https://github.com/RMorelloS/Pos-Tech-JAVA/assets/32580031/4b45f0c4-e2a9-44ab-a3f1-aa86d14524a4)
 
 **Em caso de erro:**
 ```bash
@@ -468,7 +468,7 @@ curl --location --request DELETE 'localhost:8080/endereco/5f6fc85b-d5cd-4a8c-b63
 
 **Saída: retorna 200 - OK ou mensagem de erro, caso não haja um endereço com o id especificado**
 
-![image](https://github.com/RMorelloS/Pos_Tech_Fase_1/assets/32580031/21ed6a8f-3279-4cbc-b136-d4c8eef0d396)
+![image](https://github.com/RMorelloS/Pos-Tech-JAVA/assets/32580031/21ed6a8f-3279-4cbc-b136-d4c8eef0d396)
 
 
 
@@ -495,7 +495,7 @@ Nesta requisição, ressalta-se que apenas os campos permitidos são cadastrados
 **Saída: retorno 200 - OK ou erro de validação, caso algum dos campos não atenda aos requisitos necessários**
 
 **Em caso de sucesso:**
-![image](https://github.com/RMorelloS/Pos_Tech_Fase_1/assets/32580031/39768dba-e002-4f82-a7c1-01c0648f11ee)
+![image](https://github.com/RMorelloS/Pos-Tech-JAVA/assets/32580031/39768dba-e002-4f82-a7c1-01c0648f11ee)
 
 **Em caso de erro:**
 
@@ -624,7 +624,7 @@ curl --location --request DELETE 'localhost:8080/eletrodomestico/c88f374b-7d7f-4
 ```
 **Saída: retorna 200 - OK ou mensagem de erro, caso não haja um eletrodoméstico com o id especificado**
 
-![image](https://github.com/RMorelloS/Pos_Tech_Fase_1/assets/32580031/5d2e2132-f3eb-4fa3-9113-253bbade14d5)
+![image](https://github.com/RMorelloS/Pos-Tech-JAVA/assets/32580031/5d2e2132-f3eb-4fa3-9113-253bbade14d5)
 
 ### 6. Ligar ou desligar aparelho
 
@@ -651,7 +651,7 @@ curl --location 'localhost:8080/pessoa' \
 **Saída: retorno 200 - OK ou erro de validação, caso algum dos campos não atenda aos requisitos necessários**
 
 **Em caso de sucesso:**
-![image](https://github.com/RMorelloS/Pos_Tech_Fase_1/assets/32580031/470614c5-9f0c-4f43-9161-6a473d1393f2)
+![image](https://github.com/RMorelloS/Pos-Tech-JAVA/assets/32580031/470614c5-9f0c-4f43-9161-6a473d1393f2)
 
 
 **Em caso de erro:**
@@ -732,7 +732,7 @@ curl --location --request DELETE 'localhost:8080/pessoa/2c66e46b-69d2-44ce-b382-
 ```
 **Saída: retorna 200 - OK ou mensagem de erro, caso não haja uma pessoa com o id especificado**
 
-![image](https://github.com/RMorelloS/Pos_Tech_Fase_1/assets/32580031/7bf66031-639b-4eef-94d9-2a713b7b918b)
+![image](https://github.com/RMorelloS/Pos-Tech-JAVA/assets/32580031/7bf66031-639b-4eef-94d9-2a713b7b918b)
 
 
 

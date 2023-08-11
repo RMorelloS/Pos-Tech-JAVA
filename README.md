@@ -135,7 +135,7 @@ curl --location --request DELETE 'localhost:8080/usuario/c26f3663-3b1d-4762-acea
 
 ### 6. Para listar as pessoas/eletrodomésticos associados a determinado endereço, utilizar uma requisição do tipo GET, passando o nome do objeto que se deseja buscar (pessoas ou eletro) e o ID do endereço:
 
-#### Para busca de pessoas:
+#### 6.1 Para busca de pessoas:
 
 ```bash
 curl --location 'localhost:8080/usuario/buscarPorEndereco/pessoas/209f52c5-d1a2-443f-bd41-d8a0ee014f22'
@@ -208,7 +208,7 @@ curl --location 'localhost:8080/usuario/buscarPorEndereco/pessoas/209f52c5-d1a2-
 ]
 ```
 
-#### Para busca de eletrodomésticos:
+#### 6.2 Para busca de eletrodomésticos:
 
 ```bash
 curl --location 'localhost:8080/usuario/buscarPorEndereco/eletro/209f52c5-d1a2-443f-bd41-d8a0ee014f22'
@@ -239,6 +239,100 @@ curl --location 'localhost:8080/usuario/buscarPorEndereco/eletro/209f52c5-d1a2-4
                 "loginUsuario": "ricardoms"
             },
             "hibernateLazyInitializer": {}
+        }
+    }
+]
+```
+
+### 7. Para buscar as pessoas, endereços ou eletrodomésticos pelos atributos, utilizar uma requisição do tipo GET, passando o nome do objeto que se deseja buscar (pessoas, eletro ou endereco), o nome do atributo (rua, cidade, bairro, parentesco_usuario) e o valor do parâmetro (Rua A, Cidade B, Bairro C, parentescoUsuario Mãe):
+
+#### 7.1 Para busca de endereços por bairro:
+
+```bash
+curl --location 'localhost:8080/usuario/endereco/bairro/Bairro 1'
+```
+
+**Saída: retorna a lista de endereços com o campo bairro correspondente ao enviado na requisição ou vazio, caso não haja endereços que correspondam ao parâmetro enviado**
+
+```json
+[
+    {
+        "rua": "Avenida 1",
+        "numero": 20,
+        "bairro": "Bairro 1",
+        "cidade": "São Paulo",
+        "estado": "São Paulo",
+        "idEndereco": "209f52c5-d1a2-443f-bd41-d8a0ee014f22",
+        "usuario": {
+            "idUsuario": "d975d4d3-eb20-4dfe-b9a1-5113b8ebd2fe",
+            "loginUsuario": "ricardoms"
+        }
+    }
+]
+```
+
+#### 7.2 Para busca de pessoas por parentesco:
+
+```bash
+   curl --location 'localhost:8080/usuario/pessoas/parentesco_usuario/Mãe'
+```
+
+**Saída: retorna a lista de pessoas com o campo parentesco_usuario correspondente ao enviado na requisição ou vazio, caso não haja pessoas que correspondam ao parâmetro enviado**
+
+```json
+[
+    {
+        "nome": "Maria",
+        "dataNascimento": "1968-05-29",
+        "sexo": "M",
+        "parentescoUsuario": "Mãe",
+        "idPessoa": "444f1dee-d5b3-4a43-b45d-39eb03d0c57e",
+        "endereco": {
+            "rua": "Avenida 1",
+            "numero": 20,
+            "bairro": "Bairro 1",
+            "cidade": "São Paulo",
+            "estado": "São Paulo",
+            "idEndereco": "209f52c5-d1a2-443f-bd41-d8a0ee014f22",
+            "usuario": {
+                "idUsuario": "d975d4d3-eb20-4dfe-b9a1-5113b8ebd2fe",
+                "loginUsuario": "ricardoms"
+            }
+        }
+    }
+]
+```
+
+#### 7.3 Para busca de eletrodomésticos por modelo:
+
+```bash
+   curl --location 'localhost:8080/usuario/eletro/modelo/Electrolux'
+```
+
+**Saída: retorna a lista de eletrodomésticos com o campo modelo correspondente ao enviado na requisição ou vazio, caso não haja eletrodomésticos que correspondam ao parâmetro enviado**
+
+```json
+[
+    {
+        "inicio_uso": null,
+        "eletro_ligado": false,
+        "fim_uso": null,
+        "tempo_uso": 0.0,
+        "nome": "Geladeira",
+        "potencia": 110,
+        "modelo": "Electrolux",
+        "idEletrodomestico": "e0e8fd0a-6619-4140-943e-ef2d3e871949",
+        "endereco": {
+            "rua": "Avenida 1",
+            "numero": 20,
+            "bairro": "Bairro 1",
+            "cidade": "São Paulo",
+            "estado": "São Paulo",
+            "idEndereco": "209f52c5-d1a2-443f-bd41-d8a0ee014f22",
+            "usuario": {
+                "idUsuario": "d975d4d3-eb20-4dfe-b9a1-5113b8ebd2fe",
+                "loginUsuario": "ricardoms"
+            }
         }
     }
 ]

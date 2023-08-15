@@ -244,7 +244,7 @@ curl --location 'localhost:8080/usuario/buscarPorEndereco/eletro/209f52c5-d1a2-4
 ]
 ```
 
-### 7. Para buscar as pessoas, endereços ou eletrodomésticos pelos atributos, utilizar uma requisição do tipo GET, passando o nome do objeto que se deseja buscar (pessoas, eletro ou endereco), o nome do atributo (rua, cidade, bairro, parentesco_usuario) e o valor do parâmetro (Rua A, Cidade B, Bairro C, parentescoUsuario Mãe):
+### 7. Para buscar as pessoas, endereços ou eletrodomésticos pelos atributos, utilizar uma requisição do tipo GET, passando o nome do objeto que se deseja buscar (pessoas, eletro ou endereco), o nome do atributo (rua, cidade, bairro, parentesco_usuario) e o valor do parâmetro (Rua A, Cidade B, Bairro C, parentesco_usuario Mãe):
 
 #### 7.1 Para busca de endereços por bairro:
 

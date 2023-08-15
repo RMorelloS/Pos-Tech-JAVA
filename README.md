@@ -710,21 +710,23 @@ A API cadastro de pessoas permite armazenar as seguintes informações: nome, da
 ### 1. Para gravar uma pessoa, utilizar uma requisição do tipo POST, passando informações como:
 
 ```bash
-curl --location 'localhost:8080/pessoa' \
---header 'Content-Type: application/json' \
---data '{
-    "nome": "Ricardo",
-    "dataNascimento": "1998-05-29",
+{
+    "nome": "Patricia",
+    "dataNascimento": "1968-05-29",
     "sexo": "M",
-    "parentescoUsuario": "Irmão",
-    "idPessoa": "aaaa"
-}'
+    "parentescoUsuario": "Prima",
+    "endereco": {
+        "idEndereco": "209f52c5-d1a2-443f-bd41-d8a0ee014f22"
+    }
+}
 ```
+
+Obs: necessário enviar o id do endereço ao qual a pessoa estará atrelada
 
 **Saída: retorno 200 - OK ou erro de validação, caso algum dos campos não atenda aos requisitos necessários**
 
 **Em caso de sucesso:**
-![image](https://github.com/RMorelloS/Pos-Tech-JAVA/assets/32580031/470614c5-9f0c-4f43-9161-6a473d1393f2)
+![image](https://github.com/RMorelloS/Pos-Tech-JAVA/assets/32580031/a02adf7a-1305-4be8-8249-00d23d885e54)
 
 
 **Em caso de erro:**

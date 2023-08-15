@@ -773,17 +773,29 @@ curl --location 'localhost:8080/pessoa'
 ### 3. Para ler as informações de uma pessoa específica, utilizar uma requisição do tipo GET, passando um id como parâmetro:
 
 ```bash
-curl --location 'localhost:8080/pessoa/baaa8e09-186a-4bc0-a241-49ecd17d28eb'
+curl --location 'localhost:8080/pessoa/444f1dee-d5b3-4a43-b45d-39eb03d0c57e'
 ```
 
 **Saída: retorna a pessoa ou mensagem de erro, caso não haja uma pessoa com o id especificado**
 ```bash
 {
-    "nome": "Ricardo",
-    "dataNascimento": "1998-05-29",
+    "nome": "Maria",
+    "dataNascimento": "1968-05-29",
     "sexo": "M",
-    "parentescoUsuario": "Irmão",
-    "idPessoa": "baaa8e09-186a-4bc0-a241-49ecd17d28eb"
+    "parentescoUsuario": "Mãe",
+    "idPessoa": "444f1dee-d5b3-4a43-b45d-39eb03d0c57e",
+    "endereco": {
+        "rua": "Avenida 1",
+        "numero": 20,
+        "bairro": "Bairro 1",
+        "cidade": "São Paulo",
+        "estado": "São Paulo",
+        "idEndereco": "209f52c5-d1a2-443f-bd41-d8a0ee014f22",
+        "usuario": {
+            "idUsuario": "d975d4d3-eb20-4dfe-b9a1-5113b8ebd2fe",
+            "loginUsuario": "ricardoms"
+        }
+    }
 }
 ```
 
@@ -797,7 +809,10 @@ curl --location --request PUT 'localhost:8080/pessoa' \
     "dataNascimento": "1995-05-29",
     "sexo": "M",
     "parentescoUsuario": "Meio-irmão",
-    "idPessoa": "baaa8e09-186a-4bc0-a241-49ecd17d28eb"
+    "idPessoa": "444f1dee-d5b3-4a43-b45d-39eb03d0c57e",
+    "endereco": {
+        "idEndereco": "209f52c5-d1a2-443f-bd41-d8a0ee014f22"
+    }
 }
 '
 ```
@@ -809,7 +824,16 @@ curl --location --request PUT 'localhost:8080/pessoa' \
     "dataNascimento": "1995-05-29",
     "sexo": "M",
     "parentescoUsuario": "Meio-irmão",
-    "idPessoa": "2c66e46b-69d2-44ce-b382-18211b309449"
+    "idPessoa": "444f1dee-d5b3-4a43-b45d-39eb03d0c57e",
+    "endereco": {
+        "rua": null,
+        "numero": 0,
+        "bairro": null,
+        "cidade": null,
+        "estado": null,
+        "idEndereco": "209f52c5-d1a2-443f-bd41-d8a0ee014f22",
+        "usuario": null
+    }
 }
 ```
 
@@ -819,8 +843,7 @@ curl --location --request DELETE 'localhost:8080/pessoa/2c66e46b-69d2-44ce-b382-
 ```
 **Saída: retorna 200 - OK ou mensagem de erro, caso não haja uma pessoa com o id especificado**
 
-![image](https://github.com/RMorelloS/Pos-Tech-JAVA/assets/32580031/7bf66031-639b-4eef-94d9-2a713b7b918b)
-
+![image](https://github.com/RMorelloS/Pos-Tech-JAVA/assets/32580031/b6b4556a-d910-432b-a9fa-fea39d519112)
 
 
 

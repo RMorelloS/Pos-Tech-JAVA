@@ -626,10 +626,75 @@ curl --location --request DELETE 'localhost:8080/eletrodomestico/c88f374b-7d7f-4
 ```
 **Saída: retorna 200 - OK ou mensagem de erro, caso não haja um eletrodoméstico com o id especificado**
 
-![image](https://github.com/RMorelloS/Pos-Tech-JAVA/assets/32580031/5d2e2132-f3eb-4fa3-9113-253bbade14d5)
+![image](https://github.com/RMorelloS/Pos-Tech-JAVA/assets/32580031/174e4b73-df3a-4c2b-83a9-4c1f85332e61)
 
-### 6. Ligar ou desligar aparelho
 
+### 6. Para ligar ou desligar um eletrodoméstico, utilizar uma requisição do tipo POST, passando o id do aparelho como parâmetro:
+
+```bash
+curl --location --request POST 'localhost:8080/eletrodomestico/66b9de9a-e830-4149-b712-0b811d183f0f'
+```
+
+Todos os eletrodomésticos iniciam com o atributo _tempo_uso_ igual a 0. O fluxo segue:
+   1. Na primeira requisição POST
+      1.1 O atributo _inicio_uso_ é configurado como a data da requisição
+      1.2 O atributo _eletro_ligado_ é configurado como _true_
+
+   ```json
+      {
+          **"inicio_uso": "2023-08-14T23:51:21.233706",
+          "eletro_ligado": true,
+          "fim_uso": null,
+          "tempo_uso": 0.0,**
+          "nome": "Televisão",
+          "potencia": 110,
+          "modelo": "Electrolux",
+          "idEletrodomestico": "66b9de9a-e830-4149-b712-0b811d183f0f",
+          "endereco": {
+              "rua": "Avenida 1",
+              "numero": 20,
+              "bairro": "Bairro 1",
+              "cidade": "São Paulo",
+              "estado": "São Paulo",
+              "idEndereco": "209f52c5-d1a2-443f-bd41-d8a0ee014f22",
+              "usuario": {
+                  "idUsuario": "d975d4d3-eb20-4dfe-b9a1-5113b8ebd2fe",
+                  "loginUsuario": "ricardoms"
+              }
+          }
+      }
+   ```
+      
+   2. Na segunda requisição POST:
+      2.1 O atributo _fim_uso_ é configurado como a nova data da segunda requisição
+      2.2 O atributo _tempo_uso_ é calculado como a diferença entre os atributos _inicio_uso_ e _fim_uso_ somada com o valor              já existente do atributo _tempo_uso_ (atributo calculado em segundos)
+      2.3 O atributo _eletro_ligado_ é configurado como _false_
+
+   ```json
+      {
+          **"inicio_uso": "2023-08-14T23:51:21.233706",
+          "eletro_ligado": false,
+          "fim_uso": "2023-08-14T23:52:47.369162",
+          "tempo_uso": 86.0,**
+          "nome": "Televisão",
+          "potencia": 110,
+          "modelo": "Electrolux",
+          "idEletrodomestico": "66b9de9a-e830-4149-b712-0b811d183f0f",
+          "endereco": {
+              "rua": "Avenida 1",
+              "numero": 20,
+              "bairro": "Bairro 1",
+              "cidade": "São Paulo",
+              "estado": "São Paulo",
+              "idEndereco": "209f52c5-d1a2-443f-bd41-d8a0ee014f22",
+              "usuario": {
+                  "idUsuario": "d975d4d3-eb20-4dfe-b9a1-5113b8ebd2fe",
+                  "loginUsuario": "ricardoms"
+              }
+          }
+      }
+   ```
+Qualquer requisição POST subsequente cairá no primeiro ou segundo caso, dependendo se o eletrodoméstico já está ligado ou não.
 
 ## Cadastro de Pessoas
 

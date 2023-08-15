@@ -749,11 +749,23 @@ curl --location 'localhost:8080/pessoa'
 ```bash
 [
     {
-        "nome": "Ricardo",
-        "dataNascimento": "1998-05-29",
+        "nome": "Patricia",
+        "dataNascimento": "1968-05-29",
         "sexo": "M",
-        "parentescoUsuario": "Irmão",
-        "idPessoa": "baaa8e09-186a-4bc0-a241-49ecd17d28eb"
+        "parentescoUsuario": "Prima",
+        "idPessoa": "d949a58c-e939-4307-bf71-416aa3cf65ad",
+        "endereco": {
+            "rua": "Avenida 1",
+            "numero": 20,
+            "bairro": "Bairro 1",
+            "cidade": "São Paulo",
+            "estado": "São Paulo",
+            "idEndereco": "209f52c5-d1a2-443f-bd41-d8a0ee014f22",
+            "usuario": {
+                "idUsuario": "d975d4d3-eb20-4dfe-b9a1-5113b8ebd2fe",
+                "loginUsuario": "ricardoms"
+            }
+        }
     }
 ]
 ```

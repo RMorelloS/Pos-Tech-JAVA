@@ -91,11 +91,11 @@ public class UsuarioController {
 
     @RequestMapping(path="/{repositoryName}/{paramName}/{param}", method=RequestMethod.GET)
     public ResponseEntity findByParam(@PathVariable String repositoryName, @PathVariable String paramName, @PathVariable String param){
-        if(repositoryName.equals("buscaEletros")) {
+        if(repositoryName.equals("eletro")) {
             return ResponseEntity.ok(eletroService.findByParam(param, paramName));
-        }else if(repositoryName.equals("buscaEnderecos")){
+        }else if(repositoryName.equals("endereco")){
             return ResponseEntity.ok(enderecoService.findByParam(param, paramName));
-        }else if(repositoryName.equals("buscaPessoas")){
+        }else if(repositoryName.equals("pessoas")){
             return ResponseEntity.ok(pessoaService.findByParam(param, paramName));
         }
         return new ResponseEntity("Requisição inválida. Utilizar o formato:" +

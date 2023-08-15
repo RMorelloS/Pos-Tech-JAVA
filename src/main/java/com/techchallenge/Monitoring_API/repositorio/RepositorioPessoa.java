@@ -19,4 +19,5 @@ public interface RepositorioPessoa extends JpaRepository<Pessoa, UUID> {
     List<Pessoa> findByDataNascimento(LocalDate dataNascimento);
     List<Pessoa> findBySexo(String sexo);
     List<Pessoa> findByParentescoUsuario(String parentescoUsuario);
+
 }

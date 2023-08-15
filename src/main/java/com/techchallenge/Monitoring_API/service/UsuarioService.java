@@ -94,4 +94,6 @@ public class UsuarioService {
         listaEletros = eletroService.findByEndereco(idEndereco);
         return listaEletros;
     }
+
+
 }

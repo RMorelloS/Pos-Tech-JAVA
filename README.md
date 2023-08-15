@@ -469,7 +469,7 @@ curl --location --request DELETE 'localhost:8080/endereco/5f6fc85b-d5cd-4a8c-b63
 
 **Saída: retorna 200 - OK ou mensagem de erro, caso não haja um endereço com o id especificado**
 
-![image](https://github.com/RMorelloS/Pos-Tech-JAVA/assets/32580031/21ed6a8f-3279-4cbc-b136-d4c8eef0d396)
+![image](https://github.com/RMorelloS/Pos-Tech-JAVA/assets/32580031/7dccfb8f-6323-4a1d-a1bb-eaa2a4061eed)
 
 
 

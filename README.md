@@ -363,7 +363,8 @@ curl --location 'localhost:8080/endereco' \
 **Saída: retorno 200 - OK ou erro de validação, caso algum dos campos não atenda aos requisitos necessários ou caso não exista um usuário com o id informado**
 
 **Em caso de sucesso:**
-![image](https://github.com/RMorelloS/Pos-Tech-JAVA/assets/32580031/4b45f0c4-e2a9-44ab-a3f1-aa86d14524a4)
+![image](https://github.com/RMorelloS/Pos-Tech-JAVA/assets/32580031/80d8a46b-6a80-493d-b676-b5936e02d02b)
+
 
 **Em caso de erro:**
 ```bash

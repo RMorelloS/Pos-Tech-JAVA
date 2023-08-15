@@ -35,7 +35,7 @@ O método _findByParam_ permite retornar os registros por determinado filtro, co
 
 O método _buscarPorEndereco_ permite retornar os aparelhos ou pessoas associados a determinado endereço. 
 
-A alteração dos objetos na relação 1 x N foi configurada para o modo cascata. Por exemplo, a exclusão do usuário deletará todos os endereços associados.
+A alteração dos objetos na relação 1 x N foi configurada para o modo cascata. Por exemplo, a exclusão do usuário deletará todos os endereços, eletrodomésticos e pessoas associadas.
 
 ![diagrama_classes_techchallenge](https://github.com/RMorelloS/Pos-Tech-JAVA/assets/32580031/85108503-b5fd-4183-8e67-ecc908a35e08)
 

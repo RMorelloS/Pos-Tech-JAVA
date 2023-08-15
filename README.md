@@ -43,7 +43,7 @@ A alteração dos objetos na relação 1 x N foi configurada para o modo cascata
 
 ## Usuário
 
-A API cadastro de usuários permite armazenar o login do usuário e serve como _endpoint_ principal para manipular as demais entidades.
+A API cadastro de usuários permite armazenar o login do usuário e serve como _endpoint_ principal para filtrar endereços, eletrodomésticos ou pessoas por atributo.
 
 ### 1. Para gravar um usuário, utilizar uma requisição do tipo POST, passando informações como:
 

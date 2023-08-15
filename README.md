@@ -488,7 +488,7 @@ curl --location 'localhost:8080/eletrodomestico' \
     "endereco": {
         "idEndereco": "209f52c5-d1a2-443f-bd41-d8a0ee014f22"
     },
-    "idUsuario": "ccac9e49-54ce-48bb-bdd7-c4274d12a67e"
+    "idUsuario": "idfake"
 }'
 ```
 Nesta requisição, ressalta-se que apenas os campos permitidos são cadastrados. No exemplo, há a tentativa de submeter um id pelo usuário, que é bloqueado pelo uso de DTO's. 
@@ -496,7 +496,8 @@ Nesta requisição, ressalta-se que apenas os campos permitidos são cadastrados
 **Saída: retorno 200 - OK ou erro de validação, caso algum dos campos não atenda aos requisitos necessários**
 
 **Em caso de sucesso:**
-![image](https://github.com/RMorelloS/Pos-Tech-JAVA/assets/32580031/39768dba-e002-4f82-a7c1-01c0648f11ee)
+![image](https://github.com/RMorelloS/Pos-Tech-JAVA/assets/32580031/1da3af6d-082f-4506-8e18-d1d2c03fa005)
+
 
 **Em caso de erro:**
 

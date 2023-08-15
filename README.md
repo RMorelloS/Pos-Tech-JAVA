@@ -636,16 +636,19 @@ curl --location --request POST 'localhost:8080/eletrodomestico/66b9de9a-e830-414
 ```
 
 Todos os eletrodomésticos iniciam com o atributo _tempo_uso_ igual a 0. O fluxo segue:
+
    1. Na primeira requisição POST
+      
       1.1 O atributo _inicio_uso_ é configurado como a data da requisição
+      
       1.2 O atributo _eletro_ligado_ é configurado como _true_
 
    ```json
       {
-          **"inicio_uso": "2023-08-14T23:51:21.233706",
+          "inicio_uso": "2023-08-14T23:51:21.233706",
           "eletro_ligado": true,
           "fim_uso": null,
-          "tempo_uso": 0.0,**
+          "tempo_uso": 0.0,
           "nome": "Televisão",
           "potencia": 110,
           "modelo": "Electrolux",
@@ -666,16 +669,19 @@ Todos os eletrodomésticos iniciam com o atributo _tempo_uso_ igual a 0. O fluxo
    ```
       
    2. Na segunda requisição POST:
+      
       2.1 O atributo _fim_uso_ é configurado como a nova data da segunda requisição
+      
       2.2 O atributo _tempo_uso_ é calculado como a diferença entre os atributos _inicio_uso_ e _fim_uso_ somada com o valor              já existente do atributo _tempo_uso_ (atributo calculado em segundos)
+      
       2.3 O atributo _eletro_ligado_ é configurado como _false_
 
    ```json
       {
-          **"inicio_uso": "2023-08-14T23:51:21.233706",
+          "inicio_uso": "2023-08-14T23:51:21.233706",
           "eletro_ligado": false,
           "fim_uso": "2023-08-14T23:52:47.369162",
-          "tempo_uso": 86.0,**
+          "tempo_uso": 86.0,
           "nome": "Televisão",
           "potencia": 110,
           "modelo": "Electrolux",

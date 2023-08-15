@@ -57,6 +57,7 @@ curl --location 'localhost:8080/usuario' \
 ```
 
 **Saída: retorno 200 - OK ou erro de validação, caso algum dos campos não atenda aos requisitos necessários**
+
 **Em caso de sucesso:**
 ![image](https://github.com/RMorelloS/Pos-Tech-JAVA/assets/32580031/450ee559-e990-4f2a-a458-280ad1bd8831)
 

@@ -36,7 +36,7 @@ Para executar o projeto utilizando Docker:
    docker run --name db_monitoring_api  --network monitoring_api -e POSTGRES_PASSWORD=password  -p 5432:5432 -d postgres:latest 
    ```
 
-   3. Criar a imagem do projeto:
+   3. Criar a imagem do projeto utilizando o JAR compilado previamente:
 
    ```bash
       docker run -p 8080:8080 --network monitoring_api -e POSTGRES_URL=db_monitoring_api -e POSTGRES_USERNAME=postgres -e POSTGRES_PASSWORD=password -d monitoring_api:latest

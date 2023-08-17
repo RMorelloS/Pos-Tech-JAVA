@@ -20,6 +20,29 @@ Ressalta-se como principal desafio, ainda não resolvido, a repetição de códi
 
 Outro desafio foi a utilização do JMapper, que não possui compatibilidade com a versão JAVA utilizada. Para tanto, foram desenvolvidos os métodos toEndereco, toPessoa, toEletrodomestico e toUsuario nos serviços respectivos. Estes métodos possibilitaram travar parâmetros de entrada pelo usuário, impedindo que o usuário pudesse configurar o id dos objetos, por exemplo.
 
+# Dockerfile
+
+Para executar o projeto utilizando Docker:
+
+   1. Criar a rede em modo bridge:
+   
+   ```bash 
+    docker network create -d bridge monitoring_api
+   ```
+
+   2. Criar a imagem postgresql:
+
+   ```bash
+   docker run --name db_monitoring_api  --network monitoring_api -e POSTGRES_PASSWORD=password  -p 5432:5432 -d postgres:latest 
+   ```
+
+   3. Criar a imagem do projeto:
+
+   ```bash
+      docker run -p 8080:8080 --network monitoring_api -e POSTGRES_URL=db_monitoring_api -e POSTGRES_USERNAME=postgres -e POSTGRES_PASSWORD=password -d monitoring_api:latest
+   ```
+
+
 # Diagrama de classes
 
 O projeto foi desenvolvido considerando quatro entidades principais: 
